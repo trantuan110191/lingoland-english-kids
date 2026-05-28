@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.DS_Store
+.check.png
+stitch_export/
+.vite-server.log
+.vite-server.pid
+.local-server.log
+.local-server.pid
+.cloudflared.log
+.cloudflared.pid

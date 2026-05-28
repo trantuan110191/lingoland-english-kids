@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="LingoLand - ứng dụng học tiếng Anh cho bé với bản đồ bài học, phát âm, trò chơi đúng sai và kho báu phần thưởng." />
+    <meta name="theme-color" content="#e0f2fe" />
+    <title>LingoLand - 3 year old English app</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@0..1&family=Quicksand:wght@500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css?v=20260519-16" />
+  </head>
+  <body>
+    <header class="top-app-bar">
+      <button id="homeLogoBtn" class="logo-btn" type="button">LingoLand</button>
+      <div class="star-pill"><span class="material-symbols-outlined filled">stars</span><b id="scoreText">0</b></div>
+      <button id="parentBtn" class="round-icon" type="button" aria-label="Góc phụ huynh"><span class="material-symbols-outlined">family_restroom</span></button>
+    </header>
+
+    <main>
+      <section id="homeScreen" class="screen active map-bg" aria-labelledby="homeTitle">
+        <svg class="map-path" preserveAspectRatio="none" aria-hidden="true"><path d="M 90 110 Q 340 220 130 420 T 390 720 T 160 980" /></svg>
+        <h1 id="homeTitle" class="visually-hidden">Trang Chủ LingoLand</h1>
+        <div id="topicMap" class="topic-map"></div>
+        <button id="quickGameBtn" class="fab" type="button" aria-label="Chơi nhanh"><span class="material-symbols-outlined filled">videogame_asset</span></button>
+      </section>
+
+      <section id="lessonScreen" class="screen lesson-bg" aria-labelledby="lessonTitle">
+        <div class="instruction-card"><h2 id="lessonTitle">Bé hãy nghe và chọn nhé!</h2></div>
+        <article class="learning-card bounce-in">
+          <button id="prevBtn" class="nav-arrow" type="button" aria-label="Từ trước">‹</button>
+          <button id="sayWordBtn" class="speaker-btn" type="button" aria-label="Nghe phát âm"><span class="material-symbols-outlined filled">volume_up</span></button>
+          <button id="nextBtn" class="nav-arrow" type="button" aria-label="Từ tiếp theo">›</button>
+          <div id="wordVisual" style="display: none;"></div>
+        </article>
+        <div class="word-label">
+          <h3 id="wordTitle">LION</h3>
+          <p id="wordMeaning">Lion</p>
+        </div>
+        <div id="choiceGrid" class="choice-grid" aria-label="Chọn ảnh đúng"></div>
+        <div id="letterTiles" class="letter-tiles"></div>
+      </section>
+
+      <section id="rewardsScreen" class="screen rewards-bg" aria-labelledby="rewardsTitle">
+        <section class="treasure-hero">
+          <h2 id="rewardsTitle">Kho báu của bé</h2>
+          <div id="progressDots" class="progress-dots"></div>
+          <p id="collectionText">Đã sưu tập: 0/20</p>
+        </section>
+        <section id="stickerGrid" class="sticker-grid" aria-label="Album sticker"></section>
+      </section>
+
+      <section id="parentScreen" class="screen parent-bg" aria-labelledby="parentTitle">
+        <article class="parent-card">
+          <h2 id="parentTitle">Góc phụ huynh</h2>
+          <p>Ứng dụng dùng hình ảnh trong thư mục <b>assets</b>, phát âm bằng Speech Synthesis của trình duyệt và lưu điểm ngay trên máy.</p>
+          <div class="parent-stats">
+            <div><b id="parentScore">0</b><span>điểm sao</span></div>
+            <div><b id="parentStreak">0</b><span>đúng liên tiếp</span></div>
+            <div><b id="parentTopic">Màu sắc</b><span>chủ đề hiện tại</span></div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Điều hướng dưới">
+      <button class="nav-btn active" data-screen="home" type="button"><span class="material-symbols-outlined filled">rocket_launch</span><small>Khám phá</small></button>
+      <button class="nav-btn" data-screen="lesson" type="button"><span class="material-symbols-outlined">auto_stories</span><small>Bài học</small></button>
+      <button class="nav-btn" data-screen="rewards" type="button"><span class="material-symbols-outlined">military_tech</span><small>Prizes</small></button>
+    </nav>
+
+    <div id="successOverlay" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-card">
+        <span class="material-symbols-outlined filled modal-star">stars</span>
+        <h2 id="modalTitle">Tuyệt vời!</h2>
+        <p id="modalMessage">Bé đã trả lời đúng rồi!</p>
+        <button id="continueBtn" class="continue-btn" type="button">Tiếp tục thôi!</button>
+      </div>
+    </div>
+
+    <script type="module" src="assets-vocabulary.js?v=20260527-vehicles2"></script>
+    <script type="module" src="app.js?v=20260527-vehicles2"></script>
+  </body>
+</html>

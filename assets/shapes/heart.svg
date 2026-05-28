@@ -1,0 +1,7 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+  <rect width='512' height='512' rx='96' fill='#fff7ed'/>
+  <g filter='drop-shadow(0 18px 16px rgba(0,0,0,.16))'>
+    <path d='M256 410 C118 292 82 246 82 172 C82 112 128 74 184 74 C216 74 241 90 256 116 C271 90 296 74 328 74 C384 74 430 112 430 172 C430 246 394 292 256 410 Z' fill='#ff5c8a'/>
+  </g>
+  <circle cx='190' cy='160' r='28' fill='rgba(255,255,255,.5)'/>
+</svg>

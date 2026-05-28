@@ -1,0 +1,7 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+  <rect width='512' height='512' rx='96' fill='#fff7ed'/>
+  <g filter='drop-shadow(0 18px 16px rgba(0,0,0,.16))'>
+    <rect x='116' y='116' width='280' height='280' rx='34' fill='#ff7a59'/>
+  </g>
+  <circle cx='190' cy='160' r='28' fill='rgba(255,255,255,.5)'/>
+</svg>
