@@ -261,7 +261,6 @@ img { max-width: 100%; display: block; }
 .choice-card {
   position: relative;
   min-height: 150px;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -481,18 +480,25 @@ img { max-width: 100%; display: block; }
     gap: 24px;
   }
   .choice-card {
-    height: 230px;
     min-height: 230px;
-    padding: 0;
+    padding: 6px;
   }
   .choice-card img {
-    width: 100%;
-    max-width: none;
-    height: 100%;
-    max-height: none;
-    transform: scale(1.42);
+    width: 98%;
+    max-width: 260px;
+    height: 260px;
+    max-height: 98%;
+    transform: scale(1.85);
   }
-  .choice-correct img { transform: scale(1.62); }
+  .choice-card-vehicles img {
+    width: 96%;
+    max-width: 250px;
+    height: 240px;
+    max-height: 96%;
+    transform: scale(1.18);
+  }
+  .choice-correct img { transform: scale(2.12); }
+  .choice-card-vehicles.choice-correct img { transform: scale(1.48); }
 }
 @media (max-width: 520px) {
   body { padding-inline: 18px; }
