@@ -15,10 +15,15 @@ Shortcut sẽ:
 - Cài dependency nếu thiếu.
 - Chạy app local trên Mac.
 - Mở app trên Mac.
-- Tạo link iPhone bằng Cloudflare Tunnel nếu có `cloudflared`.
-- Copy link iPhone vào clipboard và hiện popup.
+- Copy link iPhone online cố định vào clipboard và hiện popup.
 
-Giữ cửa sổ Terminal mở khi dùng link iPhone. Đóng Terminal thì link tunnel sẽ tắt; bấm lại shortcut để tạo link mới.
+Link iPhone online cố định:
+
+```text
+https://trantuan110191.github.io/lingoland-english-kids/
+```
+
+Link này không phụ thuộc Terminal hay Cloudflare Tunnel.
 
 ## Chạy bằng Terminal
 
@@ -64,7 +69,11 @@ git commit -m "Update English app"
 git push
 ```
 
-GitHub Pages sẽ tự cập nhật link online từ branch `main`.
+GitHub Pages sẽ tự cập nhật link online từ branch `main`:
+
+```text
+https://trantuan110191.github.io/lingoland-english-kids/
+```
 
 ## Thêm từ vựng
 
