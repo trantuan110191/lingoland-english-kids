@@ -472,6 +472,22 @@ img { max-width: 100%; display: block; }
 @media (min-width: 760px) {
   .sticker-grid { grid-template-columns: repeat(3, 1fr); }
 }
+@media (min-width: 760px) and (max-width: 1100px) {
+  .choice-grid {
+    width: min(1120px, 100%);
+    gap: 24px;
+  }
+  .choice-card {
+    min-height: 230px;
+    padding: 6px;
+  }
+  .choice-card img {
+    width: min(98%, 260px);
+    height: min(98%, 260px);
+    transform: scale(1.85);
+  }
+  .choice-correct img { transform: scale(2.12); }
+}
 @media (max-width: 520px) {
   body { padding-inline: 18px; }
   .top-app-bar { padding-inline: 18px; }
