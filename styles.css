@@ -490,15 +490,7 @@ img { max-width: 100%; display: block; }
     max-height: 98%;
     transform: scale(1.85);
   }
-  .choice-card-vehicles img {
-    width: 96%;
-    max-width: 250px;
-    height: 240px;
-    max-height: 96%;
-    transform: scale(1.18);
-  }
   .choice-correct img { transform: scale(2.12); }
-  .choice-card-vehicles.choice-correct img { transform: scale(1.48); }
 }
 @media (max-width: 520px) {
   body { padding-inline: 18px; }

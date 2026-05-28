@@ -522,62 +522,62 @@ window.assetVocabulary = {
     {
       "word": "Airplane",
       "vi": "Airplane",
-      "image": "assets/vehicles/airplane.png"
+      "image": "assets/vehicles/airplane.svg"
     },
     {
       "word": "Ambulance",
       "vi": "Ambulance",
-      "image": "assets/vehicles/ambulance.png"
+      "image": "assets/vehicles/ambulance.svg"
     },
     {
       "word": "Bicycle",
       "vi": "Bicycle",
-      "image": "assets/vehicles/bicycle.png"
+      "image": "assets/vehicles/bicycle.svg"
     },
     {
       "word": "Boat",
       "vi": "Boat",
-      "image": "assets/vehicles/boat.png"
+      "image": "assets/vehicles/boat.svg"
     },
     {
       "word": "Bus",
       "vi": "Bus",
-      "image": "assets/vehicles/bus.png"
+      "image": "assets/vehicles/bus.svg"
     },
     {
       "word": "Car",
       "vi": "Car",
-      "image": "assets/vehicles/car.png"
+      "image": "assets/vehicles/car.svg"
     },
     {
       "word": "Fire Truck",
       "vi": "Fire Truck",
-      "image": "assets/vehicles/fire-truck.png"
+      "image": "assets/vehicles/fire-truck.svg"
     },
     {
       "word": "Motorcycle",
       "vi": "Motorcycle",
-      "image": "assets/vehicles/motorcycle.png"
+      "image": "assets/vehicles/motorcycle.svg"
     },
     {
       "word": "Rocket",
       "vi": "Rocket",
-      "image": "assets/vehicles/rocket.png"
+      "image": "assets/vehicles/rocket.svg"
     },
     {
       "word": "Taxi",
       "vi": "Taxi",
-      "image": "assets/vehicles/taxi.png"
+      "image": "assets/vehicles/taxi.svg"
     },
     {
       "word": "Train",
       "vi": "Train",
-      "image": "assets/vehicles/train.png"
+      "image": "assets/vehicles/train.svg"
     },
     {
       "word": "Truck",
       "vi": "Truck",
-      "image": "assets/vehicles/truck.png"
+      "image": "assets/vehicles/truck.svg"
     }
   ]
 };

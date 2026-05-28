@@ -186,7 +186,7 @@ function renderChoices(correctWord) {
   for (var i = 0; i < choices.length; i += 1) {
     var choice = choices[i];
     var button = document.createElement("button");
-    button.className = "choice-card choice-card-" + state.topic;
+    button.className = "choice-card";
     button.type = "button";
     button.innerHTML = '<img src="' + choice.image + '" alt="' + choice.word + '">';
     button.setAttribute("data-word", choice.word);
