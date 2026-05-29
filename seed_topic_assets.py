@@ -71,6 +71,20 @@ TOPICS = {
         "train": "1f686",
         "truck": "1f69a",
     },
+    "clothes": {
+        "bag": "1f392",
+        "coat": "1f9e5",
+        "dress": "1f457",
+        "glasses": "1f453",
+        "handbag": "1f45c",
+        "hat": "1f9e2",
+        "pants": "1f456",
+        "shirt": "1f455",
+        "shoes": "1f45f",
+        "socks": "1f9e6",
+        "tie": "1f454",
+        "watch": "231a",
+    },
 }
 
 COLORS = {

@@ -579,5 +579,67 @@ window.assetVocabulary = {
       "vi": "Truck",
       "image": "assets/vehicles/truck.svg"
     }
+  ],
+  "clothes": [
+    {
+      "word": "Bag",
+      "vi": "Bag",
+      "image": "assets/clothes/bag.png"
+    },
+    {
+      "word": "Coat",
+      "vi": "Coat",
+      "image": "assets/clothes/coat.png"
+    },
+    {
+      "word": "Dress",
+      "vi": "Dress",
+      "image": "assets/clothes/dress.png"
+    },
+    {
+      "word": "Glasses",
+      "vi": "Glasses",
+      "image": "assets/clothes/glasses.png"
+    },
+    {
+      "word": "Handbag",
+      "vi": "Handbag",
+      "image": "assets/clothes/handbag.png"
+    },
+    {
+      "word": "Hat",
+      "vi": "Hat",
+      "image": "assets/clothes/hat.png"
+    },
+    {
+      "word": "Pants",
+      "vi": "Pants",
+      "image": "assets/clothes/pants.png"
+    },
+    {
+      "word": "Shirt",
+      "vi": "Shirt",
+      "image": "assets/clothes/shirt.png"
+    },
+    {
+      "word": "Shoes",
+      "vi": "Shoes",
+      "image": "assets/clothes/shoes.png"
+    },
+    {
+      "word": "Socks",
+      "vi": "Socks",
+      "image": "assets/clothes/socks.png"
+    },
+    {
+      "word": "Tie",
+      "vi": "Tie",
+      "image": "assets/clothes/tie.png"
+    },
+    {
+      "word": "Watch",
+      "vi": "Watch",
+      "image": "assets/clothes/watch.png"
+    }
   ]
 };

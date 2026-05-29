@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parent
 ASSETS = ROOT / "assets"
 OUTPUT = ROOT / "assets-vocabulary.js"
 IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg"}
-TOPICS = ["colors", "numbers", "letters", "fruits", "animals", "family", "shapes", "vehicles"]
+TOPICS = ["colors", "numbers", "letters", "fruits", "animals", "family", "shapes", "vehicles", "clothes"]
 
 
 def make_word(path: Path) -> str:

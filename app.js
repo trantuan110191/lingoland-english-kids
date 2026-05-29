@@ -6,11 +6,12 @@ var topicMeta = {
   numbers: { title: "Số đếm", subtitle: "1, 2, 3 thật dễ", color: "#d6e3ff", text: "#00468c", icon: "🔢" },
   family: { title: "Gia đình", subtitle: "Người thân quanh bé", color: "#ffe173", text: "#554500", icon: "👨‍👩‍👧" },
   shapes: { title: "Hình khối", subtitle: "Vuông, tròn, tam giác", color: "#e9d5ff", text: "#4c1d95", icon: "🔷" },
-  vehicles: { title: "Phương tiện", subtitle: "Xe, tàu, máy bay", color: "#ccfbf1", text: "#134e4a", icon: "🚗" }
+  vehicles: { title: "Phương tiện", subtitle: "Xe, tàu, máy bay", color: "#ccfbf1", text: "#134e4a", icon: "🚗" },
+  clothes: { title: "Đồ dùng", subtitle: "Giày dép, quần áo", color: "#fed7aa", text: "#7c2d12", icon: "👕" }
 };
 
-var topicOrder = ["animals", "colors", "letters", "shapes", "fruits", "numbers", "family", "vehicles"];
-var defaultUnlocked = ["animals", "colors", "letters", "shapes", "vehicles"];
+var topicOrder = ["animals", "colors", "letters", "shapes", "fruits", "numbers", "family", "vehicles", "clothes"];
+var defaultUnlocked = ["animals", "colors", "letters", "shapes", "vehicles", "clothes"];
 
 function $(selector) {
   return document.querySelector(selector);
@@ -59,6 +60,7 @@ var state = {
   unlocked: makeUnlockedMap(loadUnlocked())
 };
 state.unlocked.vehicles = true;
+state.unlocked.clothes = true;
 
 var topicMap = $("#topicMap");
 var screens = {
@@ -272,6 +274,7 @@ function handleFeedback(correct, element) {
     if (state.score >= 170) unlockTopic("numbers");
     if (state.score >= 200) unlockTopic("family");
     if (state.score >= 230) unlockTopic("vehicles");
+    if (state.score >= 260) unlockTopic("clothes");
     element.classList.add("choice-correct");
     var buttons = choiceGrid.querySelectorAll("button");
     for (var i = 0; i < buttons.length; i += 1) {
