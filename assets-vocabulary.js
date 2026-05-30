@@ -641,5 +641,77 @@ window.assetVocabulary = {
       "vi": "Watch",
       "image": "assets/clothes/watch.png"
     }
+  ],
+  "office": [
+    {
+      "word": "Briefcase",
+      "vi": "Briefcase",
+      "image": "assets/office/briefcase.png"
+    },
+    {
+      "word": "Calendar",
+      "vi": "Calendar",
+      "image": "assets/office/calendar.png"
+    },
+    {
+      "word": "File Cabinet",
+      "vi": "File Cabinet",
+      "image": "assets/office/file-cabinet.png"
+    },
+    {
+      "word": "Folder",
+      "vi": "Folder",
+      "image": "assets/office/folder.png"
+    },
+    {
+      "word": "Keyboard",
+      "vi": "Keyboard",
+      "image": "assets/office/keyboard.png"
+    },
+    {
+      "word": "Laptop",
+      "vi": "Laptop",
+      "image": "assets/office/laptop.png"
+    },
+    {
+      "word": "Memo",
+      "vi": "Memo",
+      "image": "assets/office/memo.png"
+    },
+    {
+      "word": "Mouse",
+      "vi": "Mouse",
+      "image": "assets/office/mouse.png"
+    },
+    {
+      "word": "Paperclip",
+      "vi": "Paperclip",
+      "image": "assets/office/paperclip.png"
+    },
+    {
+      "word": "Pencil",
+      "vi": "Pencil",
+      "image": "assets/office/pencil.png"
+    },
+    {
+      "word": "Printer",
+      "vi": "Printer",
+      "image": "assets/office/printer.png"
+    },
+    {
+      "word": "Ruler",
+      "vi": "Ruler",
+      "image": "assets/office/ruler.png"
+    },
+    {
+      "word": "Scissors",
+      "vi": "Scissors",
+      "image": "assets/office/scissors.png"
+    },
+    {
+      "word": "Telephone",
+      "vi": "Telephone",
+      "image": "assets/office/telephone.png"
+    }
   ]
 };

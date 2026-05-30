@@ -85,6 +85,22 @@ TOPICS = {
         "tie": "1f454",
         "watch": "231a",
     },
+    "office": {
+        "briefcase": "1f4bc",
+        "calendar": "1f4c5",
+        "file-cabinet": "1f5c4",
+        "folder": "1f4c1",
+        "keyboard": "2328",
+        "laptop": "1f4bb",
+        "memo": "1f4dd",
+        "mouse": "1f5b1",
+        "paperclip": "1f4ce",
+        "pencil": "270f",
+        "printer": "1f5a8",
+        "ruler": "1f4cf",
+        "scissors": "2702",
+        "telephone": "260e",
+    },
 }
 
 COLORS = {
