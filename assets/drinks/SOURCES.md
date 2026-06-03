@@ -9,7 +9,7 @@ Some drink PNGs combine one main Fluent Emoji asset with a small Fluent Emoji ba
 
 | File | Main asset | Badge asset |
 | --- | --- | --- |
-| `apple-juice.png` | Beverage box | - |
+| `apple-juice.png` | User-provided apple juice carton image, processed to transparent PNG | - |
 | `bubble-tea.png` | Bubble tea | - |
 | `coca-cola.png` | Cup with straw | - |
 | `coffee.png` | Hot beverage | - |
