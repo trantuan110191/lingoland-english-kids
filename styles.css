@@ -276,10 +276,10 @@ img { max-width: 100%; display: block; }
   transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
 .choice-card img {
-  width: 86%;
-  max-width: 190px;
-  height: 190px;
-  max-height: 86%;
+  width: 96%;
+  max-width: 240px;
+  height: 240px;
+  max-height: 96%;
   object-fit: contain;
   border-radius: 22px;
   filter: drop-shadow(0 18px 20px rgba(0,0,0,.16));
@@ -484,10 +484,10 @@ img { max-width: 100%; display: block; }
     padding: 6px;
   }
   .choice-card img {
-    width: 98%;
-    max-width: 260px;
-    height: 260px;
-    max-height: 98%;
+    width: 99%;
+    max-width: 320px;
+    height: 320px;
+    max-height: 99%;
     transform: scale(1.85);
   }
   .choice-correct img { transform: scale(2.12); }
@@ -503,7 +503,7 @@ img { max-width: 100%; display: block; }
   .island-img { width: 126px; height: 126px; font-size: 72px; }
   .choice-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
   .choice-card { min-height: 178px; padding: 8px; }
-  .choice-card img { width: 92%; height: 92%; max-height: 158px; }
+  .choice-card img { width: 96%; height: 96%; max-height: 185px; }
   .bottom-nav { padding-inline: 8px; }
   .nav-btn { min-width: 82px; }
   .parent-stats { grid-template-columns: 1fr; }
