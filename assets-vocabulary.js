@@ -718,62 +718,62 @@ window.assetVocabulary = {
     {
       "word": "Apple Juice",
       "vi": "Apple Juice",
-      "image": "assets/drinks/apple-juice.jpg"
+      "image": "assets/drinks/apple-juice.jpg?v=20260604-drinkphotos2"
     },
     {
       "word": "Bubble Tea",
       "vi": "Bubble Tea",
-      "image": "assets/drinks/bubble-tea.jpg"
+      "image": "assets/drinks/bubble-tea.jpg?v=20260604-drinkphotos2"
     },
     {
       "word": "Coca-Cola",
       "vi": "Coca-Cola",
-      "image": "assets/drinks/coca-cola.jpg"
+      "image": "assets/drinks/coca-cola.jpg?v=20260604-drinkphotos2"
     },
     {
       "word": "Coffee",
       "vi": "Coffee",
-      "image": "assets/drinks/coffee.jpg"
+      "image": "assets/drinks/coffee.jpg?v=20260604-drinkphotos2"
     },
     {
       "word": "Hot Chocolate",
       "vi": "Hot Chocolate",
-      "image": "assets/drinks/hot-chocolate.jpg"
+      "image": "assets/drinks/hot-chocolate.jpg?v=20260604-drinkphotos2"
     },
     {
       "word": "Lemonade",
       "vi": "Lemonade",
-      "image": "assets/drinks/lemonade.jpg"
+      "image": "assets/drinks/lemonade.jpg?v=20260604-drinkphotos2"
     },
     {
       "word": "Milk",
       "vi": "Milk",
-      "image": "assets/drinks/milk.jpg"
+      "image": "assets/drinks/milk.jpg?v=20260604-drinkphotos2"
     },
     {
       "word": "Orange Juice",
       "vi": "Orange Juice",
-      "image": "assets/drinks/orange-juice.jpg"
+      "image": "assets/drinks/orange-juice.jpg?v=20260604-drinkphotos2"
     },
     {
       "word": "Smoothie",
       "vi": "Smoothie",
-      "image": "assets/drinks/smoothie.jpg"
+      "image": "assets/drinks/smoothie.jpg?v=20260604-drinkphotos2"
     },
     {
       "word": "Soda",
       "vi": "Soda",
-      "image": "assets/drinks/soda.jpg"
+      "image": "assets/drinks/soda.jpg?v=20260604-drinkphotos2"
     },
     {
       "word": "Tea",
       "vi": "Tea",
-      "image": "assets/drinks/tea.jpg"
+      "image": "assets/drinks/tea.jpg?v=20260604-drinkphotos2"
     },
     {
       "word": "Water",
       "vi": "Water",
-      "image": "assets/drinks/water.jpg"
+      "image": "assets/drinks/water.jpg?v=20260604-drinkphotos2"
     }
   ]
 };
