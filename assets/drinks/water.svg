@@ -1,7 +1,42 @@
 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
-  <rect width='512' height='512' rx='96' fill='#fff7ed'/>
-  <path d='M158 126h196l-34 312H192L158 126z' fill='#eff6ff' stroke='#bfdbfe' stroke-width='18' stroke-linejoin='round'/>
-  <path d='M184 230h144l-20 172H204l-20-172z' fill='#60a5fa'/>
-  <circle cx='226' cy='284' r='24' fill='rgba(255,255,255,.55)'/>
-  <text x='256' y='356' text-anchor='middle' font-family='Arial Rounded MT Bold, Arial, sans-serif' font-size='42' font-weight='900' fill='#075985'>WATER</text>
+  <rect width='512' height='512' fill='white'/>
+  <!-- Shadow -->
+  <ellipse cx='256' cy='468' rx='110' ry='16' fill='rgba(0,0,0,0.10)'/>
+  <!-- Water bottle body -->
+  <path d='M200 190 L195 160 L205 145 Q256 135 307 145 L317 160 L312 190 Z' fill='#B3E5FC' stroke='#29B6F6' stroke-width='7' stroke-linejoin='round'/>
+  <rect x='190' y='190' width='132' height='250' rx='28' fill='#E1F5FE' stroke='#29B6F6' stroke-width='7'/>
+  <!-- Cap -->
+  <rect x='218' y='120' width='76' height='30' rx='12' fill='#0288D1' stroke='#01579B' stroke-width='5'/>
+  <!-- Water ripple inside bottle -->
+  <ellipse cx='256' cy='310' rx='56' ry='12' fill='#81D4FA' opacity='0.6'/>
+  <ellipse cx='256' cy='340' rx='56' ry='12' fill='#81D4FA' opacity='0.5'/>
+  <ellipse cx='256' cy='370' rx='56' ry='12' fill='#81D4FA' opacity='0.4'/>
+  <!-- Blue water fill bottom -->
+  <path d='M192 360 Q220 348 256 355 Q292 348 320 360 L318 430 Q256 440 194 430 Z' fill='#29B6F6' opacity='0.55' rx='20'/>
+  <!-- Shine on bottle -->
+  <rect x='205' y='210' width='14' height='200' rx='7' fill='white' opacity='0.5'/>
+  <rect x='228' y='215' width='8' height='160' rx='4' fill='white' opacity='0.3'/>
+  <!-- Bubbles -->
+  <circle cx='240' cy='270' r='8' fill='#29B6F6' opacity='0.5'/>
+  <circle cx='270' cy='255' r='6' fill='#4FC3F7' opacity='0.5'/>
+  <circle cx='255' cy='295' r='5' fill='#29B6F6' opacity='0.4'/>
+  <circle cx='285' cy='278' r='7' fill='#4FC3F7' opacity='0.45'/>
+  <!-- Kawaii face -->
+  <circle cx='234' cy='315' r='11' fill='#333'/>
+  <circle cx='278' cy='315' r='11' fill='#333'/>
+  <circle cx='237' cy='311' r='4' fill='white'/>
+  <circle cx='281' cy='311' r='4' fill='white'/>
+  <!-- Cheeks -->
+  <circle cx='215' cy='334' r='13' fill='#4FC3F7' opacity='0.6'/>
+  <circle cx='297' cy='334' r='13' fill='#4FC3F7' opacity='0.6'/>
+  <!-- Smile -->
+  <path d='M242 333 Q256 348 272 333' stroke='#333' stroke-width='4' fill='none' stroke-linecap='round'/>
+  <!-- Water drops around -->
+  <ellipse cx='155' cy='280' rx='10' ry='14' fill='#29B6F6' opacity='0.6'/>
+  <ellipse cx='358' cy='260' rx='8' ry='11' fill='#4FC3F7' opacity='0.5'/>
+  <ellipse cx='148' cy='340' rx='7' ry='10' fill='#29B6F6' opacity='0.5'/>
+  <!-- Sparkles -->
+  <text x='330' y='205' font-size='22' fill='#FFD700'>★</text>
+  <text x='145' y='220' font-size='18' fill='#4FC3F7'>✦</text>
+  <text x='340' y='420' font-size='18' fill='#29B6F6'>✦</text>
 </svg>

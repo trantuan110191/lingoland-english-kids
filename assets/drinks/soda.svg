@@ -1,8 +1,38 @@
 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
-  <rect width='512' height='512' rx='96' fill='#fff7ed'/>
-  <path d='M154 136h204l-32 298H186L154 136z' fill='#f8fafc' stroke='#cbd5e1' stroke-width='18' stroke-linejoin='round'/>
-  <path d='M176 228h160l-20 180H196l-20-180z' fill='#38bdf8'/>
-  <path d='M334 82l-96 232' stroke='#0f172a' stroke-width='18' stroke-linecap='round'/>
-  <circle cx='226' cy='282' r='24' fill='rgba(255,255,255,.45)'/>
-  <text x='256' y='354' text-anchor='middle' font-family='Arial Rounded MT Bold, Arial, sans-serif' font-size='38' font-weight='900' fill='#0f172a'>SODA</text>
+  <rect width='512' height='512' fill='white'/>
+  <!-- Shadow -->
+  <ellipse cx='256' cy='468' rx='85' ry='15' fill='rgba(0,0,0,0.10)'/>
+  <!-- Soda can body -->
+  <rect x='185' y='150' width='142' height='300' rx='18' fill='#EF5350' stroke='#C62828' stroke-width='7'/>
+  <!-- Top of can -->
+  <ellipse cx='256' cy='150' rx='71' ry='22' fill='#E53935' stroke='#C62828' stroke-width='7'/>
+  <!-- Can tab -->
+  <ellipse cx='256' cy='148' rx='18' ry='8' fill='#CFD8DC' stroke='#90A4AE' stroke-width='3'/>
+  <rect x='246' y='140' width='20' height='12' rx='4' fill='#B0BEC5' stroke='#78909C' stroke-width='2'/>
+  <!-- White wave design (Coca-Cola style) -->
+  <path d='M185 240 Q220 220 256 240 Q292 260 327 240 L327 280 Q292 300 256 280 Q220 260 185 280 Z' fill='white' opacity='0.9'/>
+  <!-- Shine effect -->
+  <rect x='200' y='180' width='16' height='220' rx='8' fill='white' opacity='0.35'/>
+  <!-- Bubbles floating -->
+  <circle cx='240' cy='310' r='8' fill='white' opacity='0.5'/>
+  <circle cx='268' cy='285' r='6' fill='white' opacity='0.4'/>
+  <circle cx='250' cy='350' r='5' fill='white' opacity='0.45'/>
+  <circle cx='285' cy='330' r='7' fill='white' opacity='0.4'/>
+  <circle cx='230' cy='380' r='6' fill='white' opacity='0.35'/>
+  <!-- Kawaii face -->
+  <circle cx='235' cy='360' r='11' fill='#FFF59D'/>
+  <circle cx='277' cy='360' r='11' fill='#FFF59D'/>
+  <circle cx='238' cy='357' r='4' fill='#333'/>
+  <circle cx='280' cy='357' r='4' fill='#333'/>
+  <circle cx='239' cy='355' r='1.5' fill='white'/>
+  <circle cx='281' cy='355' r='1.5' fill='white'/>
+  <!-- Cheeks -->
+  <circle cx='220' cy='375' r='11' fill='#FFCCBC' opacity='0.7'/>
+  <circle cx='292' cy='375' r='11' fill='#FFCCBC' opacity='0.7'/>
+  <!-- Smile -->
+  <path d='M243 380 Q256 393 269 380' stroke='#FFF59D' stroke-width='3.5' fill='none' stroke-linecap='round'/>
+  <!-- Sparkles -->
+  <text x='155' y='200' font-size='24' fill='#FFEB3B'>★</text>
+  <text x='330' y='225' font-size='20' fill='#FFC107'>✦</text>
+  <text x='340' y='380' font-size='18' fill='#FFEB3B'>✦</text>
 </svg>

@@ -748,32 +748,32 @@ window.assetVocabulary = {
     {
       "word": "Milk",
       "vi": "Milk",
-      "image": "assets/drinks/milk.png"
+      "image": "assets/drinks/milk.svg"
     },
     {
       "word": "Orange Juice",
       "vi": "Orange Juice",
-      "image": "assets/drinks/orange-juice.png"
+      "image": "assets/drinks/orange-juice.svg"
     },
     {
       "word": "Smoothie",
       "vi": "Smoothie",
-      "image": "assets/drinks/smoothie.png"
+      "image": "assets/drinks/smoothie.svg"
     },
     {
       "word": "Soda",
       "vi": "Soda",
-      "image": "assets/drinks/soda.png"
+      "image": "assets/drinks/soda.svg"
     },
     {
       "word": "Tea",
       "vi": "Tea",
-      "image": "assets/drinks/tea.png"
+      "image": "assets/drinks/tea.svg"
     },
     {
       "word": "Water",
       "vi": "Water",
-      "image": "assets/drinks/water.png"
+      "image": "assets/drinks/water.svg"
     }
   ]
 };
