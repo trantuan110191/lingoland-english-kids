@@ -718,7 +718,7 @@ window.assetVocabulary = {
     {
       "word": "Apple Juice",
       "vi": "Apple Juice",
-      "image": "assets/drinks/apple-juice.png"
+      "image": "assets/drinks/apple-juice.jpg"
     },
     {
       "word": "Bubble Tea",
@@ -748,7 +748,7 @@ window.assetVocabulary = {
     {
       "word": "Milk",
       "vi": "Milk",
-      "image": "assets/drinks/milk.svg"
+      "image": "assets/drinks/milk.jpg"
     },
     {
       "word": "Orange Juice",
