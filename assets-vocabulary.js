@@ -723,27 +723,27 @@ window.assetVocabulary = {
     {
       "word": "Bubble Tea",
       "vi": "Bubble Tea",
-      "image": "assets/drinks/bubble-tea.png"
+      "image": "assets/drinks/bubble-tea.jpg"
     },
     {
       "word": "Coca-Cola",
       "vi": "Coca-Cola",
-      "image": "assets/drinks/coca-cola.png"
+      "image": "assets/drinks/coca-cola.jpg"
     },
     {
       "word": "Coffee",
       "vi": "Coffee",
-      "image": "assets/drinks/coffee.png"
+      "image": "assets/drinks/coffee.jpg"
     },
     {
       "word": "Hot Chocolate",
       "vi": "Hot Chocolate",
-      "image": "assets/drinks/hot-chocolate.png"
+      "image": "assets/drinks/hot-chocolate.jpg"
     },
     {
       "word": "Lemonade",
       "vi": "Lemonade",
-      "image": "assets/drinks/lemonade.png"
+      "image": "assets/drinks/lemonade.jpg"
     },
     {
       "word": "Milk",
@@ -753,27 +753,27 @@ window.assetVocabulary = {
     {
       "word": "Orange Juice",
       "vi": "Orange Juice",
-      "image": "assets/drinks/orange-juice.svg"
+      "image": "assets/drinks/orange-juice.jpg"
     },
     {
       "word": "Smoothie",
       "vi": "Smoothie",
-      "image": "assets/drinks/smoothie.svg"
+      "image": "assets/drinks/smoothie.jpg"
     },
     {
       "word": "Soda",
       "vi": "Soda",
-      "image": "assets/drinks/soda.svg"
+      "image": "assets/drinks/soda.jpg"
     },
     {
       "word": "Tea",
       "vi": "Tea",
-      "image": "assets/drinks/tea.svg"
+      "image": "assets/drinks/tea.jpg"
     },
     {
       "word": "Water",
       "vi": "Water",
-      "image": "assets/drinks/water.svg"
+      "image": "assets/drinks/water.jpg"
     }
   ]
 };
