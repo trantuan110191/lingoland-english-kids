@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#7dd3fc"/>
+      <stop offset="1" stop-color="#bbf7d0"/>
+    </linearGradient>
+    <linearGradient id="coin" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fde047"/>
+      <stop offset="1" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#sky)"/>
+  <path d="M0 370c72-34 146-44 222-20 70 22 130 24 180 2 50-22 86-28 110-18v178H0z" fill="#22c55e"/>
+  <path d="M0 410c76-24 154-25 234-4 72 19 134 16 186-8 38-18 69-23 92-15v129H0z" fill="#16a34a"/>
+  <circle cx="258" cy="229" r="140" fill="url(#coin)" stroke="#ffffff" stroke-width="20"/>
+  <path d="M258 107l28 70 75 5-58 48 19 73-64-40-64 40 19-73-58-48 75-5z" fill="#ffffff" opacity=".88"/>
+  <text x="256" y="286" text-anchor="middle" font-family="Quicksand, Arial Rounded MT Bold, Arial, sans-serif" font-size="190" font-weight="900" fill="#075985">L</text>
+  <circle cx="137" cy="132" r="22" fill="#ffffff" opacity=".82"/>
+  <circle cx="105" cy="142" r="16" fill="#ffffff" opacity=".82"/>
+  <circle cx="392" cy="118" r="12" fill="#ffffff" opacity=".86"/>
+  <path d="M407 86l12 22 22 12-22 12-12 22-12-22-22-12 22-12z" fill="#ffffff" opacity=".92"/>
+</svg>
