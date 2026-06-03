@@ -1,0 +1,8 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+  <rect width='512' height='512' rx='96' fill='#fff7ed'/>
+  <path d='M154 136h204l-32 298H186L154 136z' fill='#f8fafc' stroke='#cbd5e1' stroke-width='18' stroke-linejoin='round'/>
+  <path d='M176 228h160l-20 180H196l-20-180z' fill='#38bdf8'/>
+  <path d='M334 82l-96 232' stroke='#0f172a' stroke-width='18' stroke-linecap='round'/>
+  <circle cx='226' cy='282' r='24' fill='rgba(255,255,255,.45)'/>
+  <text x='256' y='354' text-anchor='middle' font-family='Arial Rounded MT Bold, Arial, sans-serif' font-size='38' font-weight='900' fill='#0f172a'>SODA</text>
+</svg>

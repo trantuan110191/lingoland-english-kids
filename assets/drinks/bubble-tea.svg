@@ -1,0 +1,10 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+  <rect width='512' height='512' rx='96' fill='#fff7ed'/>
+  <path d='M154 138h204l-30 298H184L154 138z' fill='#fdf2f8' stroke='#f9a8d4' stroke-width='18' stroke-linejoin='round'/>
+  <path d='M172 246h168l-18 168H190l-18-168z' fill='#c084fc'/>
+  <path d='M326 72l-78 222' stroke='#0f172a' stroke-width='18' stroke-linecap='round'/>
+  <circle cx='216' cy='364' r='18' fill='#422006'/>
+  <circle cx='260' cy='386' r='18' fill='#422006'/>
+  <circle cx='292' cy='350' r='18' fill='#422006'/>
+  <text x='256' y='228' text-anchor='middle' font-family='Arial Rounded MT Bold, Arial, sans-serif' font-size='44' font-weight='900' fill='#831843'>BOBA</text>
+</svg>

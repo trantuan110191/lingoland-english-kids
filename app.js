@@ -8,11 +8,12 @@ var topicMeta = {
   shapes: { title: "Hình khối", subtitle: "Vuông, tròn, tam giác", color: "#e9d5ff", text: "#4c1d95", icon: "🔷" },
   vehicles: { title: "Phương tiện", subtitle: "Xe, tàu, máy bay", color: "#ccfbf1", text: "#134e4a", icon: "🚗" },
   clothes: { title: "Đồ dùng", subtitle: "Giày dép, quần áo", color: "#fed7aa", text: "#7c2d12", icon: "👕" },
-  office: { title: "Văn phòng", subtitle: "Bút, giấy, máy tính", color: "#e0e7ff", text: "#3730a3", icon: "💼" }
+  office: { title: "Văn phòng", subtitle: "Bút, giấy, máy tính", color: "#e0e7ff", text: "#3730a3", icon: "💼" },
+  drinks: { title: "Đồ uống", subtitle: "Nước ép, soda, sữa", color: "#bae6fd", text: "#075985", icon: "🧃" }
 };
 
-var topicOrder = ["animals", "colors", "letters", "shapes", "fruits", "numbers", "family", "vehicles", "clothes", "office"];
-var defaultUnlocked = ["animals", "colors", "letters", "shapes", "vehicles", "clothes", "office"];
+var topicOrder = ["animals", "colors", "letters", "shapes", "fruits", "numbers", "family", "vehicles", "clothes", "office", "drinks"];
+var defaultUnlocked = ["animals", "colors", "letters", "shapes", "vehicles", "clothes", "office", "drinks"];
 
 function $(selector) {
   return document.querySelector(selector);
@@ -63,6 +64,7 @@ var state = {
 state.unlocked.vehicles = true;
 state.unlocked.clothes = true;
 state.unlocked.office = true;
+state.unlocked.drinks = true;
 
 var topicMap = $("#topicMap");
 var screens = {
@@ -278,6 +280,7 @@ function handleFeedback(correct, element) {
     if (state.score >= 230) unlockTopic("vehicles");
     if (state.score >= 260) unlockTopic("clothes");
     if (state.score >= 290) unlockTopic("office");
+    if (state.score >= 320) unlockTopic("drinks");
     element.classList.add("choice-correct");
     var buttons = choiceGrid.querySelectorAll("button");
     for (var i = 0; i < buttons.length; i += 1) {

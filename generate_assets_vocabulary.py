@@ -7,11 +7,17 @@ ROOT = Path(__file__).resolve().parent
 ASSETS = ROOT / "assets"
 OUTPUT = ROOT / "assets-vocabulary.js"
 IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg"}
-TOPICS = ["colors", "numbers", "letters", "fruits", "animals", "family", "shapes", "vehicles", "clothes", "office"]
+TOPICS = ["colors", "numbers", "letters", "fruits", "animals", "family", "shapes", "vehicles", "clothes", "office", "drinks"]
+WORD_OVERRIDES = {
+    "coca-cola": "Coca-Cola",
+}
 
 
 def make_word(path: Path) -> str:
     name = path.stem.strip()
+    override = WORD_OVERRIDES.get(name.lower())
+    if override:
+        return override
     name = re.sub(r"^\d+[-_\s]*", "", name)
     name = re.sub(r"[-_]+", " ", name)
     name = re.sub(r"\s+", " ", name).strip()
