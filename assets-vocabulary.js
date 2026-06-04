@@ -291,122 +291,122 @@ window.assetVocabulary = {
     {
       "word": "Bear",
       "vi": "Bear",
-      "image": "assets/animals/bear.png"
+      "image": "assets/animals/bear.png?v=20260604-animals1"
     },
     {
       "word": "Bird",
       "vi": "Bird",
-      "image": "assets/animals/bird.png"
+      "image": "assets/animals/bird.png?v=20260604-animals1"
     },
     {
       "word": "Cat",
       "vi": "Cat",
-      "image": "assets/animals/cat.png"
+      "image": "assets/animals/cat.png?v=20260604-animals1"
     },
     {
       "word": "Chicken",
       "vi": "Chicken",
-      "image": "assets/animals/chicken.png"
+      "image": "assets/animals/chicken.png?v=20260604-animals1"
     },
     {
       "word": "Cow",
       "vi": "Cow",
-      "image": "assets/animals/cow.png"
+      "image": "assets/animals/cow.png?v=20260604-animals1"
     },
     {
       "word": "Dog",
       "vi": "Dog",
-      "image": "assets/animals/dog.png"
+      "image": "assets/animals/dog.png?v=20260604-animals1"
     },
     {
       "word": "Dolphin",
       "vi": "Dolphin",
-      "image": "assets/animals/dolphin.png"
+      "image": "assets/animals/dolphin.png?v=20260604-animals1"
     },
     {
       "word": "Duck",
       "vi": "Duck",
-      "image": "assets/animals/duck.png"
+      "image": "assets/animals/duck.png?v=20260604-animals1"
     },
     {
       "word": "Elephant",
       "vi": "Elephant",
-      "image": "assets/animals/elephant.png"
+      "image": "assets/animals/elephant.png?v=20260604-animals1"
     },
     {
       "word": "Fish",
       "vi": "Fish",
-      "image": "assets/animals/fish.png"
+      "image": "assets/animals/fish.png?v=20260604-animals1"
     },
     {
       "word": "Frog",
       "vi": "Frog",
-      "image": "assets/animals/frog.png"
+      "image": "assets/animals/frog.png?v=20260604-animals1"
     },
     {
       "word": "Giraffe",
       "vi": "Giraffe",
-      "image": "assets/animals/giraffe.png"
+      "image": "assets/animals/giraffe.png?v=20260604-animals1"
     },
     {
       "word": "Goat",
       "vi": "Goat",
-      "image": "assets/animals/goat.png"
+      "image": "assets/animals/goat.png?v=20260604-animals1"
     },
     {
       "word": "Horse",
       "vi": "Horse",
-      "image": "assets/animals/horse.png"
+      "image": "assets/animals/horse.png?v=20260604-animals1"
     },
     {
       "word": "Lion",
       "vi": "Lion",
-      "image": "assets/animals/lion.png"
+      "image": "assets/animals/lion.png?v=20260604-animals1"
     },
     {
       "word": "Monkey",
       "vi": "Monkey",
-      "image": "assets/animals/monkey.png"
+      "image": "assets/animals/monkey.png?v=20260604-animals1"
     },
     {
       "word": "Mouse",
       "vi": "Mouse",
-      "image": "assets/animals/mouse.png"
+      "image": "assets/animals/mouse.png?v=20260604-animals1"
     },
     {
       "word": "Panda",
       "vi": "Panda",
-      "image": "assets/animals/panda.png"
+      "image": "assets/animals/panda.png?v=20260604-animals1"
     },
     {
       "word": "Pig",
       "vi": "Pig",
-      "image": "assets/animals/pig.png"
+      "image": "assets/animals/pig.png?v=20260604-animals1"
     },
     {
       "word": "Rabbit",
       "vi": "Rabbit",
-      "image": "assets/animals/rabbit.png"
+      "image": "assets/animals/rabbit.png?v=20260604-animals1"
     },
     {
       "word": "Sheep",
       "vi": "Sheep",
-      "image": "assets/animals/sheep.svg"
+      "image": "assets/animals/sheep.svg?v=20260604-animals1"
     },
     {
       "word": "Tiger",
       "vi": "Tiger",
-      "image": "assets/animals/tiger.png"
+      "image": "assets/animals/tiger.png?v=20260604-animals1"
     },
     {
       "word": "Whale",
       "vi": "Whale",
-      "image": "assets/animals/whale.png"
+      "image": "assets/animals/whale.png?v=20260604-animals1"
     },
     {
       "word": "Zebra",
       "vi": "Zebra",
-      "image": "assets/animals/zebra.png"
+      "image": "assets/animals/zebra.png?v=20260604-animals1"
     }
   ],
   "family": [
