@@ -57,10 +57,19 @@ img { max-width: 100%; display: block; }
   box-shadow: var(--shadow);
 }
 .logo-btn {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 999px;
   color: var(--primary);
-  background: transparent;
-  font-size: 28px;
-  font-weight: 700;
+  background: var(--primary-container);
+  border-bottom: 5px solid #725e00;
+  box-shadow: 0 8px 16px rgba(0,0,0,.10);
+}
+.logo-btn .material-symbols-outlined {
+  font-size: 34px;
 }
 .star-pill {
   display: flex;
@@ -551,7 +560,8 @@ img { max-width: 100%; display: block; }
 @media (max-width: 520px) {
   body { padding-inline: 18px; }
   .top-app-bar { padding-inline: 18px; }
-  .logo-btn { font-size: 24px; }
+  .logo-btn { width: 50px; height: 50px; }
+  .logo-btn .material-symbols-outlined { font-size: 32px; }
   .star-pill { padding-inline: 12px; }
   .map-bg, .lesson-bg { margin-inline: -18px; padding-inline: 18px; }
   .island:nth-child(odd) .island-card { padding-right: 118px; }
