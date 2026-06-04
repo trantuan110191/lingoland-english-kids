@@ -344,6 +344,7 @@ img { max-width: 100%; display: block; }
   padding: 112px 24px 150px;
   position: relative;
   overflow: hidden;
+  touch-action: none;
   background:
     radial-gradient(circle at 18% 22%, rgba(255,255,255,.62) 0 46px, transparent 48px),
     radial-gradient(circle at 82% 28%, rgba(255,255,255,.48) 0 34px, transparent 36px),
@@ -466,6 +467,7 @@ img { max-width: 100%; display: block; }
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 22px;
+  touch-action: none;
 }
 .bubble-choice {
   position: relative;
@@ -482,6 +484,7 @@ img { max-width: 100%; display: block; }
   box-shadow: inset -12px -18px 26px rgba(0,93,184,.18), 0 18px 0 rgba(0,93,184,.15), 0 24px 34px rgba(0,0,0,.12);
   animation: bubbleFloat 4.2s ease-in-out infinite;
   transition: transform .15s ease, opacity .15s ease;
+  will-change: transform, opacity;
 }
 .bubble-choice:active { transform: scale(.94); }
 .bubble-choice img {
@@ -509,6 +512,9 @@ img { max-width: 100%; display: block; }
   pointer-events: none;
   animation: bubblePop .72s ease forwards;
 }
+.bubble-choice.sliced {
+  filter: saturate(1.15);
+}
 .bubble-choice.popped::after {
   content: "★";
   position: absolute;
@@ -521,6 +527,45 @@ img { max-width: 100%; display: block; }
   animation: starPop .72s ease forwards;
 }
 .bubble-choice.miss { animation: shake .3s cubic-bezier(.36,.07,.19,.97) both; }
+.bubble-choice.sliced-miss {
+  box-shadow: inset -12px -18px 26px rgba(0,93,184,.18), 0 0 0 12px rgba(255,217,61,.34), 0 18px 0 rgba(0,93,184,.15), 0 24px 34px rgba(0,0,0,.12);
+}
+.slice-canvas,
+.slice-burst-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 88;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+}
+.slice-burst-layer { z-index: 89; overflow: hidden; }
+.slice-cut {
+  position: absolute;
+  left: 8%;
+  top: 48%;
+  z-index: 5;
+  width: 84%;
+  height: 9px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, #fff 10%, #ffd93d 48%, #4c96fe 74%, transparent);
+  box-shadow: 0 0 18px rgba(255,255,255,.95), 0 0 32px rgba(255,217,61,.64);
+  transform: rotate(-18deg);
+  animation: sliceFlash .62s ease forwards;
+}
+.slice-cut.wrong {
+  background: linear-gradient(90deg, transparent, #fff 12%, #bae6fd 52%, transparent);
+}
+.slice-shard {
+  position: fixed;
+  z-index: 90;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+  border-radius: 40% 60% 50% 45%;
+  box-shadow: 0 0 14px rgba(255,255,255,.72);
+  animation: sliceShard .78s cubic-bezier(.15,.72,.26,1) forwards;
+}
 
 .rewards-bg { padding-top: 10px; }
 .treasure-hero { text-align: center; }
@@ -670,6 +715,8 @@ img { max-width: 100%; display: block; }
 @keyframes bubbleDrift { 0%{transform:translateY(120px) scale(.8);opacity:0} 20%{opacity:1} 100%{transform:translateY(-520px) scale(1.18);opacity:0} }
 @keyframes bubblePop { 0%{transform:scale(1);opacity:1} 65%{transform:scale(1.24);opacity:.9} 100%{transform:scale(.1);opacity:0} }
 @keyframes starPop { 0%{transform:scale(.2) rotate(-20deg);opacity:0} 50%{opacity:1} 100%{transform:scale(1.8) rotate(20deg);opacity:0} }
+@keyframes sliceFlash { 0%{transform:rotate(-18deg) scaleX(.12);opacity:0} 30%{opacity:1} 100%{transform:rotate(-18deg) scaleX(1.12);opacity:0} }
+@keyframes sliceShard { 0%{transform:translate(-50%,-50%) scale(.4) rotate(0);opacity:1} 100%{transform:translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.6) rotate(var(--rot));opacity:0} }
 
 @media (min-width: 760px) {
   .sticker-grid { grid-template-columns: repeat(3, 1fr); }

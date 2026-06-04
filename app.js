@@ -89,11 +89,18 @@ var bubbleTopicLabel = $("#bubbleTopicLabel");
 var bubbleWord = $("#bubbleWord");
 var bubbleMeaning = $("#bubbleMeaning");
 var bubbleArena = $("#bubbleArena");
+var sliceCanvas = $("#sliceCanvas");
+var sliceContext = sliceCanvas && sliceCanvas.getContext ? sliceCanvas.getContext("2d") : null;
+var sliceBurstLayer = $("#sliceBurstLayer");
 
 var bubbleState = {
   topic: state.topic,
   target: null,
-  locked: false
+  locked: false,
+  slicing: false,
+  slicePoints: [],
+  sliceRaf: 0,
+  ignoreClickUntil: 0
 };
 
 function unlockedList() {
@@ -363,8 +370,9 @@ function renderBubbleRound() {
     button.setAttribute("data-word", choice.word);
     button.innerHTML = '<span class="bubble-shine"></span><img src="' + choice.image + '" alt="' + choice.word + '">';
     button.addEventListener("click", function () {
+      if (Date.now() < bubbleState.ignoreClickUntil) return;
       var pickedWord = this.getAttribute("data-word");
-      handleBubblePick(pickedWord === bubbleState.target.word, this);
+      handleBubblePick(pickedWord === bubbleState.target.word, this, "tap");
     });
     bubbleArena.appendChild(button);
   }
@@ -372,12 +380,13 @@ function renderBubbleRound() {
   setTimeout(cueBubbleWord, 180);
 }
 
-function handleBubblePick(correct, element) {
+function handleBubblePick(correct, element, mode) {
   if (bubbleState.locked) return;
   if (correct) {
     bubbleState.locked = true;
     awardPoints(5, bubbleState.topic);
     element.classList.add("popped");
+    if (mode === "slice") element.classList.add("sliced");
     var buttons = bubbleArena.querySelectorAll("button");
     for (var i = 0; i < buttons.length; i += 1) {
       buttons[i].disabled = true;
@@ -390,10 +399,13 @@ function handleBubblePick(correct, element) {
   } else {
     state.streak = 0;
     element.classList.add("miss");
+    if (mode === "slice") element.classList.add("sliced-miss");
     saveState();
     updateStats();
     setTimeout(function () {
       element.classList.remove("miss");
+      element.classList.remove("sliced-miss");
+      element.classList.remove("slice-hit");
     }, 420);
     cueBubbleWord();
   }
@@ -403,7 +415,159 @@ function startBubbleGame(topic) {
   bubbleState.topic = topic || state.topic || "animals";
   state.topic = bubbleState.topic;
   showScreen("bubble");
+  resizeSliceCanvas();
   renderBubbleRound();
+}
+
+function isBubbleScreenActive() {
+  return screens.bubble && screens.bubble.classList.contains("active");
+}
+
+function resizeSliceCanvas() {
+  if (!sliceCanvas || !sliceContext) return;
+  var ratio = Math.min(window.devicePixelRatio || 1, 2);
+  var width = window.innerWidth || document.documentElement.clientWidth || 1;
+  var height = window.innerHeight || document.documentElement.clientHeight || 1;
+  var pixelWidth = Math.round(width * ratio);
+  var pixelHeight = Math.round(height * ratio);
+  if (sliceCanvas.width !== pixelWidth || sliceCanvas.height !== pixelHeight) {
+    sliceCanvas.width = pixelWidth;
+    sliceCanvas.height = pixelHeight;
+    sliceCanvas.style.width = width + "px";
+    sliceCanvas.style.height = height + "px";
+  }
+  sliceContext.setTransform(ratio, 0, 0, ratio, 0, 0);
+}
+
+function scheduleSliceDraw() {
+  if (bubbleState.sliceRaf || !window.requestAnimationFrame) return;
+  bubbleState.sliceRaf = window.requestAnimationFrame(drawSliceTrail);
+}
+
+function drawSliceTrail() {
+  bubbleState.sliceRaf = 0;
+  if (!sliceContext) return;
+  resizeSliceCanvas();
+  var now = Date.now();
+  var width = window.innerWidth || document.documentElement.clientWidth || 1;
+  var height = window.innerHeight || document.documentElement.clientHeight || 1;
+  bubbleState.slicePoints = bubbleState.slicePoints.filter(function (point) {
+    return now - point.time < 260;
+  });
+  sliceContext.clearRect(0, 0, width, height);
+  if (bubbleState.slicePoints.length > 1) {
+    for (var i = 1; i < bubbleState.slicePoints.length; i += 1) {
+      var previous = bubbleState.slicePoints[i - 1];
+      var current = bubbleState.slicePoints[i];
+      var age = Math.max(0, Math.min(1, (now - current.time) / 260));
+      var alpha = 1 - age;
+      sliceContext.lineCap = "round";
+      sliceContext.lineJoin = "round";
+      sliceContext.strokeStyle = "rgba(255,255,255," + String(alpha * .95) + ")";
+      sliceContext.lineWidth = 18 * alpha + 4;
+      sliceContext.beginPath();
+      sliceContext.moveTo(previous.x, previous.y);
+      sliceContext.lineTo(current.x, current.y);
+      sliceContext.stroke();
+      sliceContext.strokeStyle = "rgba(255,217,61," + String(alpha * .88) + ")";
+      sliceContext.lineWidth = 7 * alpha + 2;
+      sliceContext.beginPath();
+      sliceContext.moveTo(previous.x, previous.y);
+      sliceContext.lineTo(current.x, current.y);
+      sliceContext.stroke();
+      sliceContext.strokeStyle = "rgba(76,150,254," + String(alpha * .82) + ")";
+      sliceContext.lineWidth = 3 * alpha + 1;
+      sliceContext.beginPath();
+      sliceContext.moveTo(previous.x, previous.y);
+      sliceContext.lineTo(current.x, current.y);
+      sliceContext.stroke();
+    }
+  }
+  if (bubbleState.slicePoints.length || bubbleState.slicing) scheduleSliceDraw();
+}
+
+function addSlicePoint(event) {
+  bubbleState.slicePoints.push({ x: event.clientX, y: event.clientY, time: Date.now() });
+  if (bubbleState.slicePoints.length > 14) bubbleState.slicePoints.shift();
+  scheduleSliceDraw();
+}
+
+function shouldIgnoreSliceTarget(target) {
+  return !!(target && target.closest && target.closest(".bubble-icon-btn, .top-app-bar, .bottom-nav, .modal"));
+}
+
+function startSlice(event) {
+  if (!isBubbleScreenActive() || shouldIgnoreSliceTarget(event.target)) return;
+  bubbleState.slicing = true;
+  bubbleState.slicePoints = [];
+  bubbleState.ignoreClickUntil = Date.now() + 360;
+  addSlicePoint(event);
+  checkSliceHit(event.clientX, event.clientY);
+  if (event.cancelable) event.preventDefault();
+}
+
+function moveSlice(event) {
+  if (!bubbleState.slicing || !isBubbleScreenActive()) return;
+  bubbleState.ignoreClickUntil = Date.now() + 360;
+  addSlicePoint(event);
+  checkSliceHit(event.clientX, event.clientY);
+  if (event.cancelable) event.preventDefault();
+}
+
+function endSlice() {
+  bubbleState.slicing = false;
+  scheduleSliceDraw();
+}
+
+function checkSliceHit(x, y) {
+  if (!bubbleArena || bubbleState.locked) return;
+  var buttons = bubbleArena.querySelectorAll(".bubble-choice:not(.slice-hit):not(.popped)");
+  for (var i = 0; i < buttons.length; i += 1) {
+    var button = buttons[i];
+    if (button.disabled) continue;
+    var rect = button.getBoundingClientRect();
+    var centerX = rect.left + rect.width / 2;
+    var centerY = rect.top + rect.height / 2;
+    var radius = Math.min(rect.width, rect.height) * .54;
+    var dx = x - centerX;
+    var dy = y - centerY;
+    if (dx * dx + dy * dy <= radius * radius) {
+      var isCorrect = button.getAttribute("data-word") === bubbleState.target.word;
+      button.classList.add("slice-hit");
+      bubbleState.ignoreClickUntil = Date.now() + 520;
+      createSliceBurst(button, isCorrect, x, y);
+      handleBubblePick(isCorrect, button, "slice");
+      if (isCorrect) return;
+    }
+  }
+}
+
+function createSliceBurst(element, correct, x, y) {
+  var cut = document.createElement("span");
+  cut.className = "slice-cut" + (correct ? "" : " wrong");
+  element.appendChild(cut);
+  setTimeout(function () {
+    if (cut.parentNode) cut.parentNode.removeChild(cut);
+  }, 620);
+
+  var layer = sliceBurstLayer || document.body;
+  var colors = correct ? ["#ffd93d", "#ffffff", "#4c96fe", "#8ff199"] : ["#ffffff", "#bae6fd", "#ffd93d"];
+  for (var i = 0; i < 14; i += 1) {
+    var shard = document.createElement("span");
+    shard.className = "slice-shard";
+    shard.style.left = String(x) + "px";
+    shard.style.top = String(y) + "px";
+    shard.style.background = colors[i % colors.length];
+    shard.style.setProperty("--dx", String((Math.random() - .5) * 230) + "px");
+    shard.style.setProperty("--dy", String((Math.random() - .7) * 190) + "px");
+    shard.style.setProperty("--rot", String((Math.random() * 220) - 110) + "deg");
+    layer.appendChild(shard);
+    setTimeout(function (node) {
+      return function () {
+        if (node.parentNode) node.parentNode.removeChild(node);
+      };
+    }(shard), 820);
+  }
 }
 
 function allWordsList() {
@@ -496,6 +660,13 @@ function wireEvents() {
   $("#bubbleReplayBtn").addEventListener("click", function () {
     cueBubbleWord();
   });
+  if (screens.bubble) {
+    screens.bubble.addEventListener("pointerdown", startSlice, { passive: false });
+    window.addEventListener("pointermove", moveSlice, { passive: false });
+    window.addEventListener("pointerup", endSlice);
+    window.addEventListener("pointercancel", endSlice);
+    window.addEventListener("resize", resizeSliceCanvas);
+  }
   $("#sayWordBtn").addEventListener("click", function () {
     speak(speechText());
   });
