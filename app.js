@@ -103,6 +103,12 @@ var bubbleState = {
   ignoreClickUntil: 0
 };
 
+var soundState = {
+  context: null,
+  master: null,
+  lastWhooshAt: 0
+};
+
 function unlockedList() {
   var result = [];
   for (var topic in state.unlocked) {
@@ -159,6 +165,80 @@ function speak(text, options) {
   utterance.rate = settings.rate || 0.8;
   utterance.pitch = settings.pitch || 1.08;
   window.speechSynthesis.speak(utterance);
+}
+
+function audioContext() {
+  var AudioCtor = window.AudioContext || window.webkitAudioContext;
+  if (!AudioCtor) return null;
+  if (!soundState.context) {
+    soundState.context = new AudioCtor();
+    soundState.master = soundState.context.createGain();
+    soundState.master.gain.value = .32;
+    soundState.master.connect(soundState.context.destination);
+  }
+  if (soundState.context.state === "suspended" && soundState.context.resume) {
+    soundState.context.resume().catch(function () {
+      return;
+    });
+  }
+  return soundState.context;
+}
+
+function playSliceWhoosh(force) {
+  var nowMs = Date.now();
+  if (nowMs - soundState.lastWhooshAt < 72) return;
+  soundState.lastWhooshAt = nowMs;
+  var context = audioContext();
+  if (!context || !soundState.master) return;
+  var strength = Math.max(.45, Math.min(force || 1, 1.35));
+  var duration = .16 + strength * .04;
+  var frameCount = Math.max(1, Math.floor(context.sampleRate * duration));
+  var buffer = context.createBuffer(1, frameCount, context.sampleRate);
+  var data = buffer.getChannelData(0);
+  for (var i = 0; i < frameCount; i += 1) {
+    var progress = i / frameCount;
+    data[i] = (Math.random() * 2 - 1) * Math.pow(1 - progress, 1.7);
+  }
+  var source = context.createBufferSource();
+  var filter = context.createBiquadFilter();
+  var gain = context.createGain();
+  var start = context.currentTime;
+  source.buffer = buffer;
+  filter.type = "bandpass";
+  filter.frequency.setValueAtTime(2400 + strength * 500, start);
+  filter.frequency.exponentialRampToValueAtTime(620, start + duration);
+  filter.Q.value = .8;
+  gain.gain.setValueAtTime(.0001, start);
+  gain.gain.exponentialRampToValueAtTime(.11 * strength, start + .018);
+  gain.gain.exponentialRampToValueAtTime(.0001, start + duration);
+  source.connect(filter);
+  filter.connect(gain);
+  gain.connect(soundState.master);
+  source.start(start);
+  source.stop(start + duration + .02);
+}
+
+function playSliceHit(correct) {
+  var context = audioContext();
+  if (!context || !soundState.master) return;
+  var start = context.currentTime;
+  var oscillator = context.createOscillator();
+  var gain = context.createGain();
+  oscillator.type = correct ? "triangle" : "sawtooth";
+  oscillator.frequency.setValueAtTime(correct ? 520 : 220, start);
+  oscillator.frequency.exponentialRampToValueAtTime(correct ? 1180 : 120, start + .18);
+  gain.gain.setValueAtTime(.0001, start);
+  gain.gain.exponentialRampToValueAtTime(correct ? .12 : .07, start + .012);
+  gain.gain.exponentialRampToValueAtTime(.0001, start + .2);
+  oscillator.connect(gain);
+  gain.connect(soundState.master);
+  oscillator.start(start);
+  oscillator.stop(start + .22);
+  if (correct) {
+    setTimeout(function () {
+      playSliceWhoosh(.6);
+    }, 80);
+  }
 }
 
 function renderImage(word) {
@@ -487,9 +567,14 @@ function drawSliceTrail() {
 }
 
 function addSlicePoint(event) {
+  var previous = bubbleState.slicePoints[bubbleState.slicePoints.length - 1];
   bubbleState.slicePoints.push({ x: event.clientX, y: event.clientY, time: Date.now() });
   if (bubbleState.slicePoints.length > 14) bubbleState.slicePoints.shift();
   scheduleSliceDraw();
+  if (!previous) return 0;
+  var dx = event.clientX - previous.x;
+  var dy = event.clientY - previous.y;
+  return Math.sqrt(dx * dx + dy * dy);
 }
 
 function shouldIgnoreSliceTarget(target) {
@@ -501,7 +586,9 @@ function startSlice(event) {
   bubbleState.slicing = true;
   bubbleState.slicePoints = [];
   bubbleState.ignoreClickUntil = Date.now() + 360;
+  audioContext();
   addSlicePoint(event);
+  playSliceWhoosh(.72);
   checkSliceHit(event.clientX, event.clientY);
   if (event.cancelable) event.preventDefault();
 }
@@ -509,7 +596,8 @@ function startSlice(event) {
 function moveSlice(event) {
   if (!bubbleState.slicing || !isBubbleScreenActive()) return;
   bubbleState.ignoreClickUntil = Date.now() + 360;
-  addSlicePoint(event);
+  var distance = addSlicePoint(event);
+  if (distance > 10) playSliceWhoosh(Math.min(1.35, distance / 56));
   checkSliceHit(event.clientX, event.clientY);
   if (event.cancelable) event.preventDefault();
 }
@@ -536,6 +624,7 @@ function checkSliceHit(x, y) {
       button.classList.add("slice-hit");
       bubbleState.ignoreClickUntil = Date.now() + 520;
       createSliceBurst(button, isCorrect, x, y);
+      playSliceHit(isCorrect);
       handleBubblePick(isCorrect, button, "slice");
       if (isCorrect) return;
     }
