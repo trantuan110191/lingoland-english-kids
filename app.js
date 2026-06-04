@@ -13,7 +13,7 @@ var topicMeta = {
 };
 
 var topicOrder = ["animals", "colors", "letters", "shapes", "fruits", "numbers", "family", "vehicles", "clothes", "office", "drinks"];
-var defaultUnlocked = ["animals", "colors", "letters", "shapes", "vehicles", "clothes", "office", "drinks"];
+var defaultUnlocked = ["animals", "colors", "letters", "shapes", "fruits", "vehicles", "clothes", "office", "drinks"];
 
 function $(selector) {
   return document.querySelector(selector);
@@ -65,11 +65,13 @@ state.unlocked.vehicles = true;
 state.unlocked.clothes = true;
 state.unlocked.office = true;
 state.unlocked.drinks = true;
+state.unlocked.fruits = true;
 
 var topicMap = $("#topicMap");
 var screens = {
   home: $("#homeScreen"),
   lesson: $("#lessonScreen"),
+  bubble: $("#bubbleScreen"),
   rewards: $("#rewardsScreen"),
   parent: $("#parentScreen")
 };
@@ -83,6 +85,16 @@ var successOverlay = $("#successOverlay");
 var stickerGrid = $("#stickerGrid");
 var progressDots = $("#progressDots");
 var collectionText = $("#collectionText");
+var bubbleTopicLabel = $("#bubbleTopicLabel");
+var bubbleWord = $("#bubbleWord");
+var bubbleMeaning = $("#bubbleMeaning");
+var bubbleArena = $("#bubbleArena");
+
+var bubbleState = {
+  topic: state.topic,
+  target: null,
+  locked: false
+};
 
 function unlockedList() {
   var result = [];
@@ -270,17 +282,7 @@ function nextWord(step) {
 
 function handleFeedback(correct, element) {
   if (correct) {
-    state.score += 10;
-    state.streak += 1;
-    unlockTopic(state.topic);
-    if (state.score >= 140) unlockTopic("fruits");
-    if (state.score >= 150) unlockTopic("shapes");
-    if (state.score >= 170) unlockTopic("numbers");
-    if (state.score >= 200) unlockTopic("family");
-    if (state.score >= 230) unlockTopic("vehicles");
-    if (state.score >= 260) unlockTopic("clothes");
-    if (state.score >= 290) unlockTopic("office");
-    if (state.score >= 320) unlockTopic("drinks");
+    awardPoints(10, state.topic);
     element.classList.add("choice-correct");
     var buttons = choiceGrid.querySelectorAll("button");
     for (var i = 0; i < buttons.length; i += 1) {
@@ -297,6 +299,111 @@ function handleFeedback(correct, element) {
   saveState();
   updateStats();
   renderMap();
+}
+
+function unlockByScore() {
+  if (state.score >= 140) unlockTopic("fruits");
+  if (state.score >= 150) unlockTopic("shapes");
+  if (state.score >= 170) unlockTopic("numbers");
+  if (state.score >= 200) unlockTopic("family");
+  if (state.score >= 230) unlockTopic("vehicles");
+  if (state.score >= 260) unlockTopic("clothes");
+  if (state.score >= 290) unlockTopic("office");
+  if (state.score >= 320) unlockTopic("drinks");
+}
+
+function awardPoints(points, topic) {
+  state.score += points;
+  state.streak += 1;
+  if (topic) unlockTopic(topic);
+  unlockByScore();
+}
+
+function playableWords(topic) {
+  return topicWords(topic).filter(function (item) {
+    return item.image;
+  });
+}
+
+function bubbleWords() {
+  var words = playableWords(bubbleState.topic);
+  if (words.length >= 4) return words;
+  bubbleState.topic = "animals";
+  state.topic = "animals";
+  return playableWords("animals");
+}
+
+function cueBubbleWord() {
+  if (!bubbleState.target) return;
+  speak(bubbleState.target.word, { rate: bubbleState.topic === "letters" ? 0.62 : 0.72, pitch: 1.12 });
+}
+
+function renderBubbleRound() {
+  var words = bubbleWords();
+  var meta = topicMeta[bubbleState.topic] || topicMeta.animals;
+  var target = words[Math.floor(Math.random() * words.length)] || words[0];
+  var distractors = shuffleItems(words.filter(function (item) {
+    return item.word !== target.word;
+  })).slice(0, 3);
+  var choices = shuffleItems([target].concat(distractors)).slice(0, 4);
+
+  bubbleState.target = target;
+  bubbleState.locked = false;
+  bubbleTopicLabel.textContent = meta.title;
+  bubbleWord.textContent = target.word.toUpperCase();
+  bubbleMeaning.textContent = target.vi || target.word;
+  bubbleArena.innerHTML = "";
+
+  for (var i = 0; i < choices.length; i += 1) {
+    var choice = choices[i];
+    var button = document.createElement("button");
+    button.className = "bubble-choice bubble-choice-" + String(i + 1);
+    button.type = "button";
+    button.style.animationDelay = String(i * -0.42) + "s";
+    button.setAttribute("data-word", choice.word);
+    button.innerHTML = '<span class="bubble-shine"></span><img src="' + choice.image + '" alt="' + choice.word + '">';
+    button.addEventListener("click", function () {
+      var pickedWord = this.getAttribute("data-word");
+      handleBubblePick(pickedWord === bubbleState.target.word, this);
+    });
+    bubbleArena.appendChild(button);
+  }
+
+  setTimeout(cueBubbleWord, 180);
+}
+
+function handleBubblePick(correct, element) {
+  if (bubbleState.locked) return;
+  if (correct) {
+    bubbleState.locked = true;
+    awardPoints(5, bubbleState.topic);
+    element.classList.add("popped");
+    var buttons = bubbleArena.querySelectorAll("button");
+    for (var i = 0; i < buttons.length; i += 1) {
+      buttons[i].disabled = true;
+    }
+    speak(bubbleState.target.word, { rate: .74, pitch: 1.18 });
+    saveState();
+    updateStats();
+    renderMap();
+    setTimeout(renderBubbleRound, 1300);
+  } else {
+    state.streak = 0;
+    element.classList.add("miss");
+    saveState();
+    updateStats();
+    setTimeout(function () {
+      element.classList.remove("miss");
+    }, 420);
+    cueBubbleWord();
+  }
+}
+
+function startBubbleGame(topic) {
+  bubbleState.topic = topic || state.topic || "animals";
+  state.topic = bubbleState.topic;
+  showScreen("bubble");
+  renderBubbleRound();
 }
 
 function allWordsList() {
@@ -381,7 +488,13 @@ function wireEvents() {
     showScreen("parent");
   });
   $("#quickGameBtn").addEventListener("click", function () {
-    showScreen("lesson");
+    startBubbleGame(state.topic);
+  });
+  $("#bubbleHomeBtn").addEventListener("click", function () {
+    showScreen("home");
+  });
+  $("#bubbleReplayBtn").addEventListener("click", function () {
+    cueBubbleWord();
   });
   $("#sayWordBtn").addEventListener("click", function () {
     speak(speechText());

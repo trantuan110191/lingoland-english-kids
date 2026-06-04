@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@0..1&family=Quicksand:wght@500;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=20260604-topiccards1" />
+    <link rel="stylesheet" href="styles.css?v=20260604-fruitsbubble1" />
   </head>
   <body>
     <header class="top-app-bar">
@@ -44,6 +44,23 @@
         </div>
         <div id="choiceGrid" class="choice-grid" aria-label="Chọn ảnh đúng"></div>
         <div id="letterTiles" class="letter-tiles"></div>
+      </section>
+
+      <section id="bubbleScreen" class="screen bubble-bg" aria-labelledby="bubbleTitle">
+        <div class="bubble-topbar">
+          <button id="bubbleHomeBtn" class="bubble-icon-btn" type="button" aria-label="Quay lại trang chủ"><span class="material-symbols-outlined filled">arrow_back</span></button>
+          <div class="bubble-heading">
+            <small id="bubbleTopicLabel">Animals</small>
+            <h2 id="bubbleTitle">Bubble Pop</h2>
+          </div>
+          <button id="bubbleReplayBtn" class="bubble-icon-btn replay" type="button" aria-label="Nghe lại"><span class="material-symbols-outlined filled">volume_up</span></button>
+        </div>
+        <div class="bubble-target" aria-live="polite">
+          <span>POP</span>
+          <strong id="bubbleWord">DOG</strong>
+          <small id="bubbleMeaning">Dog</small>
+        </div>
+        <div id="bubbleArena" class="bubble-arena" aria-label="Bubble Pop"></div>
       </section>
 
       <section id="rewardsScreen" class="screen rewards-bg" aria-labelledby="rewardsTitle">
@@ -83,7 +100,7 @@
       </div>
     </div>
 
-    <script src="assets-vocabulary.js?v=20260604-animals1"></script>
-    <script src="app.js?v=20260604-animals1"></script>
+    <script src="assets-vocabulary.js?v=20260604-fruitsbubble1"></script>
+    <script src="app.js?v=20260604-fruitsbubble1"></script>
   </body>
 </html>

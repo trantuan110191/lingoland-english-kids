@@ -239,52 +239,112 @@ window.assetVocabulary = {
     {
       "word": "Apple",
       "vi": "Apple",
-      "image": "assets/fruits/apple.png"
+      "image": "assets/fruits/apple.png?v=20260604-fruitsbubble1"
     },
     {
       "word": "Banana",
       "vi": "Banana",
-      "image": "assets/fruits/banana.png"
+      "image": "assets/fruits/banana.png?v=20260604-fruitsbubble1"
     },
     {
       "word": "Cherries",
       "vi": "Cherries",
-      "image": "assets/fruits/cherries.png"
+      "image": "assets/fruits/cherries.png?v=20260604-fruitsbubble1"
     },
     {
       "word": "Grapes",
       "vi": "Grapes",
-      "image": "assets/fruits/grapes.png"
+      "image": "assets/fruits/grapes.png?v=20260604-fruitsbubble1"
     },
     {
       "word": "Lemon",
       "vi": "Lemon",
-      "image": "assets/fruits/lemon.png"
+      "image": "assets/fruits/lemon.png?v=20260604-fruitsbubble1"
     },
     {
       "word": "Orange",
       "vi": "Orange",
-      "image": "assets/fruits/orange.png"
+      "image": "assets/fruits/orange.png?v=20260604-fruitsbubble1"
     },
     {
       "word": "Peach",
       "vi": "Peach",
-      "image": "assets/fruits/peach.png"
+      "image": "assets/fruits/peach.png?v=20260604-fruitsbubble1"
     },
     {
       "word": "Pineapple",
       "vi": "Pineapple",
-      "image": "assets/fruits/pineapple.png"
+      "image": "assets/fruits/pineapple.png?v=20260604-fruitsbubble1"
     },
     {
       "word": "Strawberry",
       "vi": "Strawberry",
-      "image": "assets/fruits/strawberry.png"
+      "image": "assets/fruits/strawberry.png?v=20260604-fruitsbubble1"
     },
     {
       "word": "Watermelon",
       "vi": "Watermelon",
-      "image": "assets/fruits/watermelon.png"
+      "image": "assets/fruits/watermelon.png?v=20260604-fruitsbubble1"
+    },
+    {
+      "word": "Pear",
+      "vi": "Pear",
+      "image": "assets/fruits/pear.svg?v=20260604-fruitsbubble1"
+    },
+    {
+      "word": "Mango",
+      "vi": "Mango",
+      "image": "assets/fruits/mango.svg?v=20260604-fruitsbubble1"
+    },
+    {
+      "word": "Kiwi",
+      "vi": "Kiwi",
+      "image": "assets/fruits/kiwi.svg?v=20260604-fruitsbubble1"
+    },
+    {
+      "word": "Coconut",
+      "vi": "Coconut",
+      "image": "assets/fruits/coconut.svg?v=20260604-fruitsbubble1"
+    },
+    {
+      "word": "Blueberry",
+      "vi": "Blueberry",
+      "image": "assets/fruits/blueberry.svg?v=20260604-fruitsbubble1"
+    },
+    {
+      "word": "Raspberry",
+      "vi": "Raspberry",
+      "image": "assets/fruits/raspberry.svg?v=20260604-fruitsbubble1"
+    },
+    {
+      "word": "Plum",
+      "vi": "Plum",
+      "image": "assets/fruits/plum.svg?v=20260604-fruitsbubble1"
+    },
+    {
+      "word": "Avocado",
+      "vi": "Avocado",
+      "image": "assets/fruits/avocado.svg?v=20260604-fruitsbubble1"
+    },
+    {
+      "word": "Papaya",
+      "vi": "Papaya",
+      "image": "assets/fruits/papaya.svg?v=20260604-fruitsbubble1"
+    },
+    {
+      "word": "Dragon Fruit",
+      "vi": "Dragon Fruit",
+      "image": "assets/fruits/dragon-fruit.svg?v=20260604-fruitsbubble1"
+    },
+    {
+      "word": "Melon",
+      "vi": "Melon",
+      "image": "assets/fruits/melon.svg?v=20260604-fruitsbubble1"
+    },
+    {
+      "word": "Fig",
+      "vi": "Fig",
+      "image": "assets/fruits/fig.svg?v=20260604-fruitsbubble1"
     }
   ],
   "animals": [
