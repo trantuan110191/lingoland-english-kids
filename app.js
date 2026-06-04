@@ -173,7 +173,7 @@ function audioContext() {
   if (!soundState.context) {
     soundState.context = new AudioCtor();
     soundState.master = soundState.context.createGain();
-    soundState.master.gain.value = .32;
+    soundState.master.gain.value = .58;
     soundState.master.connect(soundState.context.destination);
   }
   if (soundState.context.state === "suspended" && soundState.context.resume) {
@@ -209,7 +209,7 @@ function playSliceWhoosh(force) {
   filter.frequency.exponentialRampToValueAtTime(620, start + duration);
   filter.Q.value = .8;
   gain.gain.setValueAtTime(.0001, start);
-  gain.gain.exponentialRampToValueAtTime(.11 * strength, start + .018);
+  gain.gain.exponentialRampToValueAtTime(.18 * strength, start + .018);
   gain.gain.exponentialRampToValueAtTime(.0001, start + duration);
   source.connect(filter);
   filter.connect(gain);
@@ -228,7 +228,7 @@ function playSliceHit(correct) {
   oscillator.frequency.setValueAtTime(correct ? 520 : 220, start);
   oscillator.frequency.exponentialRampToValueAtTime(correct ? 1180 : 120, start + .18);
   gain.gain.setValueAtTime(.0001, start);
-  gain.gain.exponentialRampToValueAtTime(correct ? .12 : .07, start + .012);
+  gain.gain.exponentialRampToValueAtTime(correct ? .2 : .11, start + .012);
   gain.gain.exponentialRampToValueAtTime(.0001, start + .2);
   oscillator.connect(gain);
   gain.connect(soundState.master);
