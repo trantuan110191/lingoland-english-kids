@@ -136,6 +136,9 @@ img { max-width: 100%; display: block; }
 .island:nth-child(even) { animation-delay: -1.5s; }
 .island-card {
   position: relative;
+  display: block;
+  width: 100%;
+  height: 178px;
   min-height: 178px;
   padding: 28px 24px;
   border-radius: 48px;
@@ -493,13 +496,15 @@ img { max-width: 100%; display: block; }
     width: min(1120px, 100%);
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 172px;
     gap: 34px 30px;
   }
   .island {
+    height: 100%;
     margin-bottom: 0;
   }
   .island-card {
-    min-height: 172px;
+    min-height: 0;
     height: 100%;
     padding: 26px 132px 24px 26px;
     text-align: left;
