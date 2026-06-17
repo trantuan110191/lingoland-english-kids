@@ -123,6 +123,7 @@ var toyBoxState = {
   target: null,
   locked: false,
   dragging: null,
+  dragFrame: 0,
   celebrationTimer: null,
   nextTimer: null
 };
@@ -662,6 +663,10 @@ function renderToyBoxRound() {
   toyBoxState.target = target;
   toyBoxState.locked = false;
   toyBoxState.dragging = null;
+  if (toyBoxState.dragFrame && window.cancelAnimationFrame) {
+    window.cancelAnimationFrame(toyBoxState.dragFrame);
+    toyBoxState.dragFrame = 0;
+  }
   toyBoxWord.textContent = target.word.toUpperCase();
   if (toyBoxState.celebrationTimer) clearTimeout(toyBoxState.celebrationTimer);
   if (toyBoxState.nextTimer) clearTimeout(toyBoxState.nextTimer);
@@ -687,7 +692,7 @@ function renderToyBoxRound() {
 function startToyDrag(event) {
   if (toyBoxState.locked || !screens.toyBox.classList.contains("active")) return;
   unlockAudio();
-  playToyPickup();
+  setTimeout(playToyPickup, 20);
   var element = event.currentTarget;
   toyBoxState.dragging = {
     element: element,
@@ -704,12 +709,28 @@ function startToyDrag(event) {
   if (event.cancelable) event.preventDefault();
 }
 
+function paintToyDrag(drag) {
+  drag.element.style.transform = "translate3d(" + drag.dx + "px, " + drag.dy + "px, 0) scale(1.08) rotate(3deg)";
+}
+
+function scheduleToyDragPaint(drag) {
+  if (toyBoxState.dragFrame) return;
+  if (!window.requestAnimationFrame) {
+    paintToyDrag(drag);
+    return;
+  }
+  toyBoxState.dragFrame = window.requestAnimationFrame(function () {
+    toyBoxState.dragFrame = 0;
+    if (toyBoxState.dragging === drag) paintToyDrag(drag);
+  });
+}
+
 function moveToyDrag(event) {
   var drag = toyBoxState.dragging;
   if (!drag || drag.pointerId !== event.pointerId) return;
   drag.dx = event.clientX - drag.startX;
   drag.dy = event.clientY - drag.startY;
-  drag.element.style.transform = "translate(" + drag.dx + "px, " + drag.dy + "px) scale(1.08) rotate(3deg)";
+  scheduleToyDragPaint(drag);
   if (event.cancelable) event.preventDefault();
 }
 
@@ -717,6 +738,13 @@ function endToyDrag(event) {
   var drag = toyBoxState.dragging;
   if (!drag || drag.pointerId !== event.pointerId) return;
   var element = drag.element;
+  drag.dx = event.clientX - drag.startX;
+  drag.dy = event.clientY - drag.startY;
+  if (toyBoxState.dragFrame && window.cancelAnimationFrame) {
+    window.cancelAnimationFrame(toyBoxState.dragFrame);
+    toyBoxState.dragFrame = 0;
+  }
+  paintToyDrag(drag);
   var rect = toyDropZone.getBoundingClientRect();
   var inside = event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom;
   if (element.releasePointerCapture) {

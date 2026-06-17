@@ -792,6 +792,8 @@ img { max-width: 100%; display: block; }
   border-bottom: 8px solid #f9a8d4;
   box-shadow: 0 14px 24px rgba(0,0,0,.10);
   touch-action: none;
+  cursor: grab;
+  backface-visibility: hidden;
   transition: transform .18s ease, opacity .18s ease, box-shadow .18s ease;
 }
 .toy-card img {
@@ -807,6 +809,9 @@ img { max-width: 100%; display: block; }
 .toy-card.dragging {
   z-index: 20;
   opacity: .94;
+  cursor: grabbing;
+  transition: opacity .12s ease, box-shadow .12s ease;
+  will-change: transform;
   box-shadow: 0 28px 42px rgba(0,0,0,.18);
 }
 .toy-card.toy-accepted {
