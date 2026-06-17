@@ -98,6 +98,8 @@ var sliceBurstLayer = $("#sliceBurstLayer");
 var toyBoxWord = $("#toyBoxWord");
 var toyShelf = $("#toyShelf");
 var toyDropZone = $("#toyDropZone");
+var toyCelebration = $("#toyCelebration");
+var toyConfettiLayer = $("#toyConfettiLayer");
 
 var bubbleState = {
   topic: state.topic,
@@ -118,7 +120,9 @@ var soundState = {
 var toyBoxState = {
   target: null,
   locked: false,
-  dragging: null
+  dragging: null,
+  celebrationTimer: null,
+  nextTimer: null
 };
 
 function unlockedList() {
@@ -251,6 +255,45 @@ function playSliceHit(correct) {
       playSliceWhoosh(.6);
     }, 80);
   }
+}
+
+function playToyChime() {
+  var context = audioContext();
+  if (!context || !soundState.master) return;
+  var start = context.currentTime;
+  var notes = [523.25, 659.25, 783.99, 1046.5];
+  for (var i = 0; i < notes.length; i += 1) {
+    var oscillator = context.createOscillator();
+    var gain = context.createGain();
+    var noteStart = start + i * .055;
+    oscillator.type = "triangle";
+    oscillator.frequency.setValueAtTime(notes[i], noteStart);
+    gain.gain.setValueAtTime(.0001, noteStart);
+    gain.gain.exponentialRampToValueAtTime(.17, noteStart + .018);
+    gain.gain.exponentialRampToValueAtTime(.0001, noteStart + .28);
+    oscillator.connect(gain);
+    gain.connect(soundState.master);
+    oscillator.start(noteStart);
+    oscillator.stop(noteStart + .3);
+  }
+}
+
+function playToyOops() {
+  var context = audioContext();
+  if (!context || !soundState.master) return;
+  var start = context.currentTime;
+  var oscillator = context.createOscillator();
+  var gain = context.createGain();
+  oscillator.type = "sine";
+  oscillator.frequency.setValueAtTime(220, start);
+  oscillator.frequency.exponentialRampToValueAtTime(150, start + .18);
+  gain.gain.setValueAtTime(.0001, start);
+  gain.gain.exponentialRampToValueAtTime(.12, start + .016);
+  gain.gain.exponentialRampToValueAtTime(.0001, start + .22);
+  oscillator.connect(gain);
+  gain.connect(soundState.master);
+  oscillator.start(start);
+  oscillator.stop(start + .24);
 }
 
 function renderImage(word) {
@@ -543,7 +586,11 @@ function renderToyBoxRound() {
   toyBoxState.locked = false;
   toyBoxState.dragging = null;
   toyBoxWord.textContent = target.word.toUpperCase();
-  toyDropZone.classList.remove("toy-drop-correct", "toy-drop-wrong", "ready");
+  if (toyBoxState.celebrationTimer) clearTimeout(toyBoxState.celebrationTimer);
+  if (toyBoxState.nextTimer) clearTimeout(toyBoxState.nextTimer);
+  toyDropZone.classList.remove("toy-drop-correct", "toy-drop-wrong", "toy-box-open", "ready");
+  if (toyCelebration) toyCelebration.classList.remove("active");
+  if (toyConfettiLayer) toyConfettiLayer.innerHTML = "";
   toyShelf.innerHTML = "";
 
   for (var i = 0; i < choices.length; i += 1) {
@@ -614,21 +661,81 @@ function resetToyCard(element) {
   element.style.transform = "";
 }
 
+function animateToyIntoBox(element) {
+  var image = element.querySelector("img");
+  if (!image) return;
+  var startRect = image.getBoundingClientRect();
+  var dropRect = toyDropZone.getBoundingClientRect();
+  var flyer = image.cloneNode(true);
+  flyer.className = "toy-flyer";
+  flyer.style.left = String(startRect.left) + "px";
+  flyer.style.top = String(startRect.top) + "px";
+  flyer.style.width = String(startRect.width) + "px";
+  flyer.style.height = String(startRect.height) + "px";
+  flyer.style.setProperty("--tx", String(dropRect.left + dropRect.width / 2 - (startRect.left + startRect.width / 2)) + "px");
+  flyer.style.setProperty("--ty", String(dropRect.top + dropRect.height / 2 - (startRect.top + startRect.height / 2)) + "px");
+  document.body.appendChild(flyer);
+  setTimeout(function () {
+    if (flyer.parentNode) flyer.parentNode.removeChild(flyer);
+  }, 850);
+}
+
+function showToyCelebration() {
+  if (!toyCelebration) return;
+  var phrases = ["Great!", "Yay!", "Nice!", "Super!"];
+  toyCelebration.querySelector("strong").textContent = phrases[Math.floor(Math.random() * phrases.length)];
+  toyCelebration.classList.remove("active");
+  void toyCelebration.offsetWidth;
+  toyCelebration.classList.add("active");
+  if (toyBoxState.celebrationTimer) clearTimeout(toyBoxState.celebrationTimer);
+  toyBoxState.celebrationTimer = setTimeout(function () {
+    toyCelebration.classList.remove("active");
+  }, 1250);
+}
+
+function createToyConfetti() {
+  if (!toyConfettiLayer) return;
+  var colors = ["#f472b6", "#22c55e", "#38bdf8", "#facc15", "#fb923c", "#a78bfa"];
+  toyConfettiLayer.innerHTML = "";
+  for (var i = 0; i < 34; i += 1) {
+    var piece = document.createElement("span");
+    piece.className = "toy-confetti";
+    piece.style.background = colors[i % colors.length];
+    piece.style.left = String(45 + Math.random() * 10) + "%";
+    piece.style.top = String(42 + Math.random() * 10) + "%";
+    piece.style.setProperty("--tx", String((Math.random() - .5) * 620) + "px");
+    piece.style.setProperty("--ty", String(-140 - Math.random() * 220) + "px");
+    piece.style.setProperty("--rot", String(-280 + Math.random() * 560) + "deg");
+    piece.style.animationDelay = String(Math.random() * .12) + "s";
+    toyConfettiLayer.appendChild(piece);
+  }
+  setTimeout(function () {
+    if (toyConfettiLayer) toyConfettiLayer.innerHTML = "";
+  }, 1200);
+}
+
 function handleToyDrop(correct, element) {
   if (toyBoxState.locked) return;
   if (correct) {
     toyBoxState.locked = true;
     awardPoints(5, "play");
+    playToyChime();
+    animateToyIntoBox(element);
     element.classList.add("toy-accepted");
-    toyDropZone.classList.add("toy-drop-correct");
+    toyDropZone.classList.add("toy-drop-correct", "toy-box-open");
+    createToyConfetti();
+    showToyCelebration();
     createSparkles(toyDropZone);
-    speak(toyBoxState.target.word, { rate: .72, pitch: 1.2 });
+    setTimeout(function () {
+      speak("Great job!", { rate: .86, pitch: 1.24 });
+    }, 160);
     saveState();
     updateStats();
     renderMap();
-    setTimeout(renderToyBoxRound, 1400);
+    toyBoxState.nextTimer = setTimeout(renderToyBoxRound, 1750);
   } else {
     state.streak = 0;
+    playToyOops();
     toyDropZone.classList.add("toy-drop-wrong");
     element.classList.add("toy-wrong");
     saveState();
