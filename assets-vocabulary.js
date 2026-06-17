@@ -294,7 +294,7 @@ window.assetVocabulary = {
     {
       "word": "Mango",
       "vi": "Mango",
-      "image": "assets/fruits/mango.svg?v=20260604-fruitsbubble1"
+      "image": "assets/fruits/mango.svg?v=20260617-mango1"
     },
     {
       "word": "Kiwi",
