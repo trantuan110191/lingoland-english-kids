@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@0..1&family=Quicksand:wght@500;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=20260604-sliceaudio2" />
+    <link rel="stylesheet" href="styles.css?v=20260617-play1" />
   </head>
   <body>
     <header class="top-app-bar">
@@ -65,6 +65,30 @@
         <div id="sliceBurstLayer" class="slice-burst-layer" aria-hidden="true"></div>
       </section>
 
+      <section id="toyBoxScreen" class="screen toybox-bg" aria-labelledby="toyBoxTitle">
+        <div class="toybox-topbar">
+          <button id="toyBoxHomeBtn" class="bubble-icon-btn" type="button" aria-label="Quay lại trang chủ"><span class="material-symbols-outlined filled">arrow_back</span></button>
+          <div class="toybox-heading">
+            <small>Vui chơi</small>
+            <h2 id="toyBoxTitle">Toy Box</h2>
+          </div>
+          <button id="toyBoxReplayBtn" class="bubble-icon-btn replay" type="button" aria-label="Nghe lại"><span class="material-symbols-outlined filled">volume_up</span></button>
+        </div>
+        <div class="toybox-prompt" aria-live="polite">
+          <span class="material-symbols-outlined filled">toys</span>
+          <strong id="toyBoxWord">BALL</strong>
+          <small>Kéo đúng đồ chơi vào hộp</small>
+        </div>
+        <div id="toyDropZone" class="toy-drop-zone" aria-label="Hộp đồ chơi">
+          <div class="toy-box-lid"></div>
+          <div class="toy-box-body">
+            <span class="material-symbols-outlined filled">inventory_2</span>
+            <b>Drop here</b>
+          </div>
+        </div>
+        <div id="toyShelf" class="toy-shelf" aria-label="Đồ chơi để kéo"></div>
+      </section>
+
       <section id="rewardsScreen" class="screen rewards-bg" aria-labelledby="rewardsTitle">
         <section class="treasure-hero">
           <h2 id="rewardsTitle">Kho báu của bé</h2>
@@ -102,7 +126,7 @@
       </div>
     </div>
 
-    <script src="assets-vocabulary.js?v=20260604-sliceaudio2"></script>
-    <script src="app.js?v=20260604-sliceaudio2"></script>
+    <script src="assets-vocabulary.js?v=20260617-play1"></script>
+    <script src="app.js?v=20260617-play1"></script>
   </body>
 </html>

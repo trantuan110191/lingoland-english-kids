@@ -835,5 +835,67 @@ window.assetVocabulary = {
       "vi": "Water",
       "image": "assets/drinks/water.png?v=20260604-drinksreal1"
     }
+  ],
+  "play": [
+    {
+      "word": "Ball",
+      "vi": "Ball",
+      "image": "assets/play/ball.svg?v=20260617-play1"
+    },
+    {
+      "word": "Slide",
+      "vi": "Slide",
+      "image": "assets/play/slide.svg?v=20260617-play1"
+    },
+    {
+      "word": "Swing",
+      "vi": "Swing",
+      "image": "assets/play/swing.svg?v=20260617-play1"
+    },
+    {
+      "word": "Seesaw",
+      "vi": "Seesaw",
+      "image": "assets/play/seesaw.svg?v=20260617-play1"
+    },
+    {
+      "word": "Kite",
+      "vi": "Kite",
+      "image": "assets/play/kite.svg?v=20260617-play1"
+    },
+    {
+      "word": "Blocks",
+      "vi": "Blocks",
+      "image": "assets/play/blocks.svg?v=20260617-play1"
+    },
+    {
+      "word": "Puzzle",
+      "vi": "Puzzle",
+      "image": "assets/play/puzzle.svg?v=20260617-play1"
+    },
+    {
+      "word": "Doll",
+      "vi": "Doll",
+      "image": "assets/play/doll.svg?v=20260617-play1"
+    },
+    {
+      "word": "Teddy Bear",
+      "vi": "Teddy Bear",
+      "image": "assets/play/teddy-bear.svg?v=20260617-play1"
+    },
+    {
+      "word": "Sandcastle",
+      "vi": "Sandcastle",
+      "image": "assets/play/sandcastle.svg?v=20260617-play1"
+    },
+    {
+      "word": "Trampoline",
+      "vi": "Trampoline",
+      "image": "assets/play/trampoline.svg?v=20260617-play1"
+    },
+    {
+      "word": "Yo-yo",
+      "vi": "Yo-yo",
+      "image": "assets/play/yo-yo.svg?v=20260617-play1"
+    }
   ]
 };

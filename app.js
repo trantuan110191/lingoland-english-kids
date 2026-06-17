@@ -9,11 +9,12 @@ var topicMeta = {
   vehicles: { title: "Phương tiện", subtitle: "Xe, tàu, máy bay", color: "#ccfbf1", text: "#134e4a", icon: "🚗" },
   clothes: { title: "Đồ dùng", subtitle: "Giày dép, quần áo", color: "#fed7aa", text: "#7c2d12", icon: "👕" },
   office: { title: "Văn phòng", subtitle: "Bút, giấy, máy tính", color: "#e0e7ff", text: "#3730a3", icon: "💼" },
-  drinks: { title: "Đồ uống", subtitle: "Nước ép, soda, sữa", color: "#bae6fd", text: "#075985", icon: "🧃" }
+  drinks: { title: "Đồ uống", subtitle: "Nước ép, soda, sữa", color: "#bae6fd", text: "#075985", icon: "🧃" },
+  play: { title: "Vui chơi", subtitle: "Bóng, cầu trượt, xích đu", color: "#fbcfe8", text: "#831843", icon: "⚽" }
 };
 
-var topicOrder = ["animals", "colors", "letters", "shapes", "fruits", "numbers", "family", "vehicles", "clothes", "office", "drinks"];
-var defaultUnlocked = ["animals", "colors", "letters", "shapes", "fruits", "vehicles", "clothes", "office", "drinks"];
+var topicOrder = ["animals", "colors", "letters", "shapes", "fruits", "play", "numbers", "family", "vehicles", "clothes", "office", "drinks"];
+var defaultUnlocked = ["animals", "colors", "letters", "shapes", "fruits", "play", "vehicles", "clothes", "office", "drinks"];
 
 function $(selector) {
   return document.querySelector(selector);
@@ -66,12 +67,14 @@ state.unlocked.clothes = true;
 state.unlocked.office = true;
 state.unlocked.drinks = true;
 state.unlocked.fruits = true;
+state.unlocked.play = true;
 
 var topicMap = $("#topicMap");
 var screens = {
   home: $("#homeScreen"),
   lesson: $("#lessonScreen"),
   bubble: $("#bubbleScreen"),
+  toyBox: $("#toyBoxScreen"),
   rewards: $("#rewardsScreen"),
   parent: $("#parentScreen")
 };
@@ -92,6 +95,9 @@ var bubbleArena = $("#bubbleArena");
 var sliceCanvas = $("#sliceCanvas");
 var sliceContext = sliceCanvas && sliceCanvas.getContext ? sliceCanvas.getContext("2d") : null;
 var sliceBurstLayer = $("#sliceBurstLayer");
+var toyBoxWord = $("#toyBoxWord");
+var toyShelf = $("#toyShelf");
+var toyDropZone = $("#toyDropZone");
 
 var bubbleState = {
   topic: state.topic,
@@ -107,6 +113,12 @@ var soundState = {
   context: null,
   master: null,
   lastWhooshAt: 0
+};
+
+var toyBoxState = {
+  target: null,
+  locked: false,
+  dragging: null
 };
 
 function unlockedList() {
@@ -326,6 +338,10 @@ function renderMap() {
     island.querySelector("button").addEventListener("click", function () {
       state.topic = this.getAttribute("data-topic");
       state.index = 0;
+      if (state.topic === "play") {
+        startToyBoxGame();
+        return;
+      }
       renderWord();
       showScreen("lesson");
       setTimeout(function () {
@@ -397,6 +413,7 @@ function unlockByScore() {
   if (state.score >= 260) unlockTopic("clothes");
   if (state.score >= 290) unlockTopic("office");
   if (state.score >= 320) unlockTopic("drinks");
+  if (state.score >= 350) unlockTopic("play");
 }
 
 function awardPoints(points, topic) {
@@ -497,6 +514,132 @@ function startBubbleGame(topic) {
   showScreen("bubble");
   resizeSliceCanvas();
   renderBubbleRound();
+}
+
+function toyWords() {
+  return playableWords("play");
+}
+
+function cueToyWord() {
+  if (!toyBoxState.target) return;
+  speak(toyBoxState.target.word, { rate: .74, pitch: 1.14 });
+}
+
+function startToyBoxGame() {
+  state.topic = "play";
+  showScreen("toyBox");
+  renderToyBoxRound();
+}
+
+function renderToyBoxRound() {
+  var words = toyWords();
+  var target = words[Math.floor(Math.random() * words.length)] || words[0];
+  var distractors = shuffleItems(words.filter(function (item) {
+    return item.word !== target.word;
+  })).slice(0, 3);
+  var choices = shuffleItems([target].concat(distractors)).slice(0, 4);
+
+  toyBoxState.target = target;
+  toyBoxState.locked = false;
+  toyBoxState.dragging = null;
+  toyBoxWord.textContent = target.word.toUpperCase();
+  toyDropZone.classList.remove("toy-drop-correct", "toy-drop-wrong", "ready");
+  toyShelf.innerHTML = "";
+
+  for (var i = 0; i < choices.length; i += 1) {
+    var choice = choices[i];
+    var button = document.createElement("button");
+    button.className = "toy-card";
+    button.type = "button";
+    button.setAttribute("data-word", choice.word);
+    button.innerHTML = '<img src="' + choice.image + '" alt="' + choice.word + '"><b>' + choice.word + "</b>";
+    button.addEventListener("pointerdown", startToyDrag, { passive: false });
+    toyShelf.appendChild(button);
+  }
+
+  setTimeout(cueToyWord, 220);
+}
+
+function startToyDrag(event) {
+  if (toyBoxState.locked || !screens.toyBox.classList.contains("active")) return;
+  var element = event.currentTarget;
+  toyBoxState.dragging = {
+    element: element,
+    pointerId: event.pointerId,
+    startX: event.clientX,
+    startY: event.clientY,
+    dx: 0,
+    dy: 0
+  };
+  element.classList.remove("toy-wrong");
+  element.classList.add("dragging");
+  if (element.setPointerCapture) element.setPointerCapture(event.pointerId);
+  toyDropZone.classList.add("ready");
+  if (event.cancelable) event.preventDefault();
+}
+
+function moveToyDrag(event) {
+  var drag = toyBoxState.dragging;
+  if (!drag || drag.pointerId !== event.pointerId) return;
+  drag.dx = event.clientX - drag.startX;
+  drag.dy = event.clientY - drag.startY;
+  drag.element.style.transform = "translate(" + drag.dx + "px, " + drag.dy + "px) scale(1.08) rotate(3deg)";
+  if (event.cancelable) event.preventDefault();
+}
+
+function endToyDrag(event) {
+  var drag = toyBoxState.dragging;
+  if (!drag || drag.pointerId !== event.pointerId) return;
+  var element = drag.element;
+  var rect = toyDropZone.getBoundingClientRect();
+  var inside = event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom;
+  if (element.releasePointerCapture) {
+    try {
+      element.releasePointerCapture(event.pointerId);
+    } catch (error) {
+      // Safari can throw if capture already ended; the drop should still count.
+    }
+  }
+  toyBoxState.dragging = null;
+  toyDropZone.classList.remove("ready");
+  element.classList.remove("dragging");
+  if (inside) {
+    handleToyDrop(element.getAttribute("data-word") === toyBoxState.target.word, element);
+  } else {
+    resetToyCard(element);
+  }
+}
+
+function resetToyCard(element) {
+  element.style.transform = "";
+}
+
+function handleToyDrop(correct, element) {
+  if (toyBoxState.locked) return;
+  if (correct) {
+    toyBoxState.locked = true;
+    awardPoints(5, "play");
+    element.classList.add("toy-accepted");
+    toyDropZone.classList.add("toy-drop-correct");
+    createSparkles(toyDropZone);
+    speak(toyBoxState.target.word, { rate: .72, pitch: 1.2 });
+    saveState();
+    updateStats();
+    renderMap();
+    setTimeout(renderToyBoxRound, 1400);
+  } else {
+    state.streak = 0;
+    toyDropZone.classList.add("toy-drop-wrong");
+    element.classList.add("toy-wrong");
+    saveState();
+    updateStats();
+    setTimeout(function () {
+      toyDropZone.classList.remove("toy-drop-wrong");
+      resetToyCard(element);
+      element.classList.remove("toy-wrong");
+    }, 500);
+    cueToyWord();
+  }
 }
 
 function isBubbleScreenActive() {
@@ -749,6 +892,17 @@ function wireEvents() {
   $("#bubbleReplayBtn").addEventListener("click", function () {
     cueBubbleWord();
   });
+  $("#toyBoxHomeBtn").addEventListener("click", function () {
+    showScreen("home");
+  });
+  $("#toyBoxReplayBtn").addEventListener("click", function () {
+    cueToyWord();
+  });
+  if (screens.toyBox) {
+    screens.toyBox.addEventListener("pointermove", moveToyDrag, { passive: false });
+    screens.toyBox.addEventListener("pointerup", endToyDrag);
+    screens.toyBox.addEventListener("pointercancel", endToyDrag);
+  }
   if (screens.bubble) {
     screens.bubble.addEventListener("pointerdown", startSlice, { passive: false });
     window.addEventListener("pointermove", moveSlice, { passive: false });
