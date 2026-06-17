@@ -114,7 +114,9 @@ var bubbleState = {
 var soundState = {
   context: null,
   master: null,
-  lastWhooshAt: 0
+  lastWhooshAt: 0,
+  unlocked: false,
+  unlockPromise: null
 };
 
 var toyBoxState = {
@@ -189,15 +191,62 @@ function audioContext() {
   if (!soundState.context) {
     soundState.context = new AudioCtor();
     soundState.master = soundState.context.createGain();
-    soundState.master.gain.value = .58;
+    soundState.master.gain.value = .88;
     soundState.master.connect(soundState.context.destination);
   }
   if (soundState.context.state === "suspended" && soundState.context.resume) {
-    soundState.context.resume().catch(function () {
+    soundState.unlockPromise = soundState.context.resume().then(function () {
+      soundState.unlocked = true;
+    }).catch(function () {
       return;
     });
+  } else if (soundState.context.state === "running") {
+    soundState.unlocked = true;
   }
   return soundState.context;
+}
+
+function unlockAudio() {
+  var context = audioContext();
+  if (!context || !soundState.master || soundState.unlocked) return;
+  var oscillator = context.createOscillator();
+  var gain = context.createGain();
+  var start = context.currentTime;
+  oscillator.type = "sine";
+  oscillator.frequency.setValueAtTime(440, start);
+  gain.gain.setValueAtTime(.0001, start);
+  oscillator.connect(gain);
+  gain.connect(soundState.master);
+  oscillator.start(start);
+  oscillator.stop(start + .035);
+  soundState.unlocked = true;
+}
+
+function playNoisePop(start, volume) {
+  var context = audioContext();
+  if (!context || !soundState.master) return;
+  var duration = .11;
+  var frameCount = Math.max(1, Math.floor(context.sampleRate * duration));
+  var buffer = context.createBuffer(1, frameCount, context.sampleRate);
+  var data = buffer.getChannelData(0);
+  for (var i = 0; i < frameCount; i += 1) {
+    var progress = i / frameCount;
+    data[i] = (Math.random() * 2 - 1) * Math.pow(1 - progress, 2.2);
+  }
+  var source = context.createBufferSource();
+  var filter = context.createBiquadFilter();
+  var gain = context.createGain();
+  source.buffer = buffer;
+  filter.type = "highpass";
+  filter.frequency.setValueAtTime(900, start);
+  gain.gain.setValueAtTime(.0001, start);
+  gain.gain.exponentialRampToValueAtTime(volume, start + .012);
+  gain.gain.exponentialRampToValueAtTime(.0001, start + duration);
+  source.connect(filter);
+  filter.connect(gain);
+  gain.connect(soundState.master);
+  source.start(start);
+  source.stop(start + duration + .02);
 }
 
 function playSliceWhoosh(force) {
@@ -260,40 +309,68 @@ function playSliceHit(correct) {
 function playToyChime() {
   var context = audioContext();
   if (!context || !soundState.master) return;
-  var start = context.currentTime;
-  var notes = [523.25, 659.25, 783.99, 1046.5];
+  unlockAudio();
+  var start = context.currentTime + .018;
+  playNoisePop(start, .34);
+  var notes = [523.25, 659.25, 783.99, 1046.5, 1318.51];
   for (var i = 0; i < notes.length; i += 1) {
     var oscillator = context.createOscillator();
+    var shimmer = context.createOscillator();
     var gain = context.createGain();
-    var noteStart = start + i * .055;
+    var noteStart = start + .05 + i * .06;
     oscillator.type = "triangle";
+    shimmer.type = "sine";
     oscillator.frequency.setValueAtTime(notes[i], noteStart);
+    shimmer.frequency.setValueAtTime(notes[i] * 2, noteStart);
     gain.gain.setValueAtTime(.0001, noteStart);
-    gain.gain.exponentialRampToValueAtTime(.17, noteStart + .018);
-    gain.gain.exponentialRampToValueAtTime(.0001, noteStart + .28);
+    gain.gain.exponentialRampToValueAtTime(.28, noteStart + .016);
+    gain.gain.exponentialRampToValueAtTime(.0001, noteStart + .36);
     oscillator.connect(gain);
+    shimmer.connect(gain);
     gain.connect(soundState.master);
     oscillator.start(noteStart);
-    oscillator.stop(noteStart + .3);
+    shimmer.start(noteStart);
+    oscillator.stop(noteStart + .38);
+    shimmer.stop(noteStart + .22);
   }
 }
 
 function playToyOops() {
   var context = audioContext();
   if (!context || !soundState.master) return;
-  var start = context.currentTime;
+  unlockAudio();
+  var start = context.currentTime + .018;
   var oscillator = context.createOscillator();
   var gain = context.createGain();
   oscillator.type = "sine";
   oscillator.frequency.setValueAtTime(220, start);
   oscillator.frequency.exponentialRampToValueAtTime(150, start + .18);
   gain.gain.setValueAtTime(.0001, start);
-  gain.gain.exponentialRampToValueAtTime(.12, start + .016);
-  gain.gain.exponentialRampToValueAtTime(.0001, start + .22);
+  gain.gain.exponentialRampToValueAtTime(.24, start + .016);
+  gain.gain.exponentialRampToValueAtTime(.0001, start + .24);
   oscillator.connect(gain);
   gain.connect(soundState.master);
   oscillator.start(start);
-  oscillator.stop(start + .24);
+  oscillator.stop(start + .28);
+}
+
+function playToyPickup() {
+  var context = audioContext();
+  if (!context || !soundState.master) return;
+  unlockAudio();
+  var start = context.currentTime + .012;
+  var oscillator = context.createOscillator();
+  var gain = context.createGain();
+  oscillator.type = "square";
+  oscillator.frequency.setValueAtTime(360, start);
+  oscillator.frequency.exponentialRampToValueAtTime(760, start + .09);
+  gain.gain.setValueAtTime(.0001, start);
+  gain.gain.exponentialRampToValueAtTime(.13, start + .01);
+  gain.gain.exponentialRampToValueAtTime(.0001, start + .13);
+  oscillator.connect(gain);
+  gain.connect(soundState.master);
+  oscillator.start(start);
+  oscillator.stop(start + .15);
 }
 
 function renderImage(word) {
@@ -609,6 +686,8 @@ function renderToyBoxRound() {
 
 function startToyDrag(event) {
   if (toyBoxState.locked || !screens.toyBox.classList.contains("active")) return;
+  unlockAudio();
+  playToyPickup();
   var element = event.currentTarget;
   toyBoxState.dragging = {
     element: element,
@@ -725,10 +804,10 @@ function handleToyDrop(correct, element) {
     toyDropZone.classList.add("toy-drop-correct", "toy-box-open");
     createToyConfetti();
     showToyCelebration();
-    createSparkles(toyDropZone);
+    createSparkles(toyDropZone, true);
     setTimeout(function () {
-      speak("Great job!", { rate: .86, pitch: 1.24 });
-    }, 160);
+      speak("Great job!", { rate: .86, pitch: 1.24, keepQueue: false });
+    }, 260);
     saveState();
     updateStats();
     renderMap();
@@ -958,7 +1037,7 @@ function renderRewards() {
   }
 }
 
-function createSparkles(element) {
+function createSparkles(element, silent) {
   if (element.classList.contains("locked")) return;
   var colors = ["#ffe173", "#ffd93d", "#4c96fe", "#8ff199"];
   for (var i = 0; i < 12; i += 1) {
@@ -974,7 +1053,7 @@ function createSparkles(element) {
       };
     }(sparkle), 800);
   }
-  speak("Wow!");
+  if (!silent) speak("Wow!");
 }
 
 function updateStats() {
@@ -984,6 +1063,9 @@ function updateStats() {
 }
 
 function wireEvents() {
+  window.addEventListener("pointerdown", unlockAudio, { passive: true });
+  window.addEventListener("touchstart", unlockAudio, { passive: true });
+  window.addEventListener("keydown", unlockAudio);
   $("#homeLogoBtn").addEventListener("click", function () {
     showScreen("home");
   });
