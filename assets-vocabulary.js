@@ -896,6 +896,66 @@ window.assetVocabulary = {
       "word": "Yo-yo",
       "vi": "Yo-yo",
       "image": "assets/play/yo-yo.svg?v=20260617-play1"
+    },
+    {
+      "word": "Balloon",
+      "vi": "Balloon",
+      "image": "assets/play/balloon.svg?v=20260617-play5"
+    },
+    {
+      "word": "Frisbee",
+      "vi": "Frisbee",
+      "image": "assets/play/frisbee.svg?v=20260617-play5"
+    },
+    {
+      "word": "Jump Rope",
+      "vi": "Jump Rope",
+      "image": "assets/play/jump-rope.svg?v=20260617-play5"
+    },
+    {
+      "word": "Hula Hoop",
+      "vi": "Hula Hoop",
+      "image": "assets/play/hula-hoop.svg?v=20260617-play5"
+    },
+    {
+      "word": "Scooter",
+      "vi": "Scooter",
+      "image": "assets/play/scooter.svg?v=20260617-play5"
+    },
+    {
+      "word": "Skateboard",
+      "vi": "Skateboard",
+      "image": "assets/play/skateboard.svg?v=20260617-play5"
+    },
+    {
+      "word": "Toy Car",
+      "vi": "Toy Car",
+      "image": "assets/play/toy-car.svg?v=20260617-play5"
+    },
+    {
+      "word": "Toy Train",
+      "vi": "Toy Train",
+      "image": "assets/play/toy-train.svg?v=20260617-play5"
+    },
+    {
+      "word": "Marble",
+      "vi": "Marble",
+      "image": "assets/play/marble.svg?v=20260617-play5"
+    },
+    {
+      "word": "Pinwheel",
+      "vi": "Pinwheel",
+      "image": "assets/play/pinwheel.svg?v=20260617-play5"
+    },
+    {
+      "word": "Bucket",
+      "vi": "Bucket",
+      "image": "assets/play/bucket.svg?v=20260617-play5"
+    },
+    {
+      "word": "Shovel",
+      "vi": "Shovel",
+      "image": "assets/play/shovel.svg?v=20260617-play5"
     }
   ]
 };
